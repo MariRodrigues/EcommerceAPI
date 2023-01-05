@@ -1,0 +1,12 @@
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\bin\Debug\net5.0\EcommerceAPI.Domain.deps.json
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\bin\Debug\net5.0\EcommerceAPI.Domain.dll
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\bin\Debug\net5.0\EcommerceAPI.Domain.pdb
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\obj\Debug\net5.0\EcommerceAPI.Domain.csproj.AssemblyReference.cache
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\obj\Debug\net5.0\EcommerceAPI.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\obj\Debug\net5.0\EcommerceAPI.Domain.AssemblyInfoInputs.cache
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\obj\Debug\net5.0\EcommerceAPI.Domain.AssemblyInfo.cs
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\obj\Debug\net5.0\EcommerceAPI.Domain.csproj.CoreCompileInputs.cache
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\obj\Debug\net5.0\EcommerceAPI.Domain.dll
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\obj\Debug\net5.0\refint\EcommerceAPI.Domain.dll
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\obj\Debug\net5.0\EcommerceAPI.Domain.pdb
+C:\Users\ClearTech\Documents\Backup\EcommerceAPI\EcommerceAPI.Domain\obj\Debug\net5.0\ref\EcommerceAPI.Domain.dll
