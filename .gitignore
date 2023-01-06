@@ -3,7 +3,22 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+.vs/
 bin/
+EcommerceAPI/bin/
+EcommerceAPI.Application/bin/
+EcommerceAPI.Domain/bin/
+EcommerceAPI.Infra/bin/
+EcommerceAPI.Test/bin/
+UsuariosAPI/bin/
+
+obj/
+EcommerceAPI/obj/
+EcommerceAPI.Application/obj/
+EcommerceAPI.Domain/obj/
+EcommerceAPI.Infra/obj/
+EcommerceAPI.Test/obj/
+UsuariosAPI/obj/
 
 # User-specific files
 *.rsuser
