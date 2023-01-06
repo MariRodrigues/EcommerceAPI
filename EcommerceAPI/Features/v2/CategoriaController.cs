@@ -70,7 +70,6 @@ namespace EcommerceAPI.Features.v2
         public IActionResult AtualizaCategoria([FromServices] IMediator mediator, [FromBody] UpdateCategoriaCommand request)
         {
             var response = mediator.Send(request);
-
             return Ok(response);
         }
 
