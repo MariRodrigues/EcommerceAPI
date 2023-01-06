@@ -78,9 +78,9 @@ namespace EcommerceAPI.Infra.Queries
             Slapper.AutoMapper.Configuration.AddIdentifier(typeof(Subcategorias), "SubcategoriaId");
             Slapper.AutoMapper.Configuration.AddIdentifier(typeof(Produtos), "ProdutoId");
 
-            var resultFinal = Slapper.AutoMapper.MapDynamic<ReadCategoriaDto>(result).Skip((filtros.Pagina - 1) * filtros.ItensPagina).
-                    Take(filtros.ItensPagina);
-            return resultFinal;
+            return Slapper.AutoMapper.MapDynamic<ReadCategoriaDto>(result)
+                .Skip((filtros.Pagina - 1) * filtros.ItensPagina)
+                .Take(filtros.ItensPagina);
         }
     }
 }
