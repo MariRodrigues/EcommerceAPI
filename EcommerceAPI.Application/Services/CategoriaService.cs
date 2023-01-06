@@ -2,6 +2,7 @@
 using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Domain.Categorias.DTO;
 using EcommerceAPI.Domain.Subcategorias;
+using EcommerceAPI.Infra.Queries;
 using EcommerceAPI.Infra.Repository;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,16 @@ namespace EcommerceAPI.Application.Services
         private readonly CategoriaRepository _categoriaRepository;
         private readonly ProdutoRepository _produtoRepository;
         private readonly SubcategoriaRepository _subcategoriaRepository;
+        private readonly CategoriaQueries _categoriaQueries;
 
-        public CategoriaService(IMapper mapper, CategoriaRepository categoriaRepository, 
-            ProdutoRepository produtoRepository, SubcategoriaRepository subcategoriaRepository)
+        public CategoriaService(IMapper mapper, CategoriaRepository categoriaRepository,
+            ProdutoRepository produtoRepository, SubcategoriaRepository subcategoriaRepository, CategoriaQueries categoriaQueries)
         {
             _mapper = mapper;
             _categoriaRepository = categoriaRepository;
             _produtoRepository = produtoRepository;
             _subcategoriaRepository = subcategoriaRepository;
+            _categoriaQueries = categoriaQueries;
         }
         public Categoria CadastrarCategoria(CreateCategoriaDto categoriaDto)
         {
@@ -35,8 +38,12 @@ namespace EcommerceAPI.Application.Services
 
         public ReadCategoriaDto RecuperaCategoriaPorId(int id)
         {
-            Categoria categoria = _categoriaRepository.GetById(id);
-            ReadCategoriaDto categoriaDto = _mapper.Map<ReadCategoriaDto>(categoria);
+            FiltrosCategoria filtros = new FiltrosCategoria()
+            {
+                Id = id
+            };
+
+            var categoriaDto = _categoriaQueries.GetAllFilter(filtros).Result.FirstOrDefault();
             return categoriaDto;
         }
 

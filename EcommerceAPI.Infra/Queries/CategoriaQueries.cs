@@ -43,6 +43,12 @@ namespace EcommerceAPI.Infra.Queries
                             LEFT JOIN produtos p ON p.CategoriaId = c.Id
                             WHERE ";
 
+            if (filtros.Id != null)
+            {
+                query += " c.Id = @Id AND";
+                queryArgs.Add("Id", filtros.Id);
+            }
+
             if (filtros.Nome != null)
             {
                 query += " c.Nome LIKE CONCAT('%',@Nome,'%') AND";
@@ -55,7 +61,7 @@ namespace EcommerceAPI.Infra.Queries
                 queryArgs.Add("Status", filtros.Status);
             }
 
-            if (filtros.Nome == null && filtros.Status == null)
+            if (filtros.Id == null && filtros.Nome == null && filtros.Status == null)
                 query = query.Remove(query.LastIndexOf("WHERE"));
             else
                 query = query.Remove(query.LastIndexOf("AND"));

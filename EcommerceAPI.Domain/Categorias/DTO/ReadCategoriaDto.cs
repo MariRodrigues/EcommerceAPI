@@ -12,12 +12,6 @@ namespace EcommerceAPI.Domain.Categorias.DTO
         public DateTime? DataModificacao { get; set; }
         public List<Subcategorias> Subcategorias { get; set; }
         public List<Produtos> Produtos { get; set; }
-
-        public override string ToString()
-        {
-            var response = $"Nome: {Nome}, Status: {Status}, Data de criação: {DataCriacao}";
-            return response;
-        }
     }
 
     public class Subcategorias
