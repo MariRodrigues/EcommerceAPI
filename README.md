@@ -18,8 +18,12 @@ Para rodar pela primeira vez, com o visual aberto, vá em "Ferramentas" > "Geren
 
 Com o console aberto, em "Projeto Padrão" selecione o "EcommerceAPI.Infra" e escreva o seguinte comando:
 
-##Add-Migration Primeira-Migracao
+```
+Add-Migration Primeira-Migracao
+```
 
 Após confirmar, escreva:
 
-##Update-Database
+```
+Update-Database
+```
