@@ -10,3 +10,16 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [AutoMapper](https://automapper.org/)
 - [Dapper](https://github.com/DapperLib/Dapper)
 - [Swagger](https://swagger.io/)
+
+#Abrir e rodar o projeto
+Após clonar o repositório, abra-o com o Visual Studio, clicando duas vezes no arquivo .sln do projeto.
+
+Para rodar pela primeira vez, com o visual aberto, vá em "Ferramentas" > "Gerenciador de pacotes do NuGet" > "Console do Gerenciador de Pacotes"
+
+Com o console aberto, em "Projeto Padrão" selecione o "EcommerceAPI.Infra" e escreva o seguinte comando:
+
+##Add-Migration Primeira-Migracao
+
+Após confirmar, escreva:
+
+##Update-Database

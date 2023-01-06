@@ -90,10 +90,5 @@ namespace EcommerceAPI.Infra.Queries
             var resultFinal = Slapper.AutoMapper.MapDynamic<ReadCategoriaDto>(result);
             return resultFinal;
         }
-
-        public double teste (int numero)
-        {
-            return numero + numero;
-        }
     }
 }
