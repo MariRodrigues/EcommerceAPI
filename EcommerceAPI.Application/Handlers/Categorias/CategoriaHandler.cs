@@ -15,7 +15,6 @@ namespace EcommerceAPI.Application.Handlers.Categorias
 {
     public class CategoriaHandler : ICategoriaHandler
     {
-
         private readonly CategoriaRepository _categoriaRepository;
         private readonly ProdutoRepository _produtoRepository;
         private readonly SubcategoriaRepository _subcategoriaRepository;
