@@ -181,7 +181,7 @@ namespace EcommerceAPI.Application.Services
                         sub.Status = true;
                     }
                 }
-                _categoriaRepository.EditarStatus(categoriaAtualizar);
+                _categoriaRepository.EditarCategoria(categoriaAtualizar);
                 
                 ReadCategoriaDto categoriaDto = _mapper.Map<ReadCategoriaDto>(categoriaAtualizar);
                 return categoriaDto;
@@ -196,7 +196,7 @@ namespace EcommerceAPI.Application.Services
             if (categoriaAtualizar != null)
             {
                 _mapper.Map(categoriaDto, categoriaAtualizar);
-                _categoriaRepository.EditarNome(categoriaAtualizar);   
+                _categoriaRepository.EditarCategoria(categoriaAtualizar);   
                 return categoriaAtualizar;
             }
             return null;

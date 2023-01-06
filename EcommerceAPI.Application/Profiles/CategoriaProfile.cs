@@ -12,13 +12,6 @@ namespace EcommerceAPI.Application.Profiles
         {
             CreateMap<CreateCategoriaDto, Categoria>();
             CreateMap<UpdateCategoriaDto, Categoria>();
-            CreateMap<Categoria, ReadCategoriaDto>()
-                .ForMember(categoria => categoria.Subcategorias, opts => opts
-                .MapFrom(categoria => categoria.Subcategorias.Select
-                (c => new { c.Id, c.Nome, c.Status })))
-                .ForMember(categoria => categoria.Produtos, opts => opts
-                .MapFrom(categoria => categoria.Produtos.Select
-                (c => new { c.Id, c.Nome, c.Status, c.CentroDistribuicao, c.DataCriacao })));
             CreateMap<UpdateCategoriaCommand, Categoria>();
         }
         

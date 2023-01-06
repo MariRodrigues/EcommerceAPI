@@ -50,7 +50,7 @@ namespace EcommerceAPI.Application.Handlers.Categorias
                 return new ResponseApi(false, "Categoria não localizada");
 
             _mapper.Map(request, categoria);
-            _categoriaRepository.EditarNome(categoria);
+            _categoriaRepository.EditarCategoria(categoria);
 
             var response = new ResponseApi(true, "Categoria atualizada com sucesso")
             {
@@ -99,7 +99,7 @@ namespace EcommerceAPI.Application.Handlers.Categorias
                 }
             }
 
-            _categoriaRepository.EditarStatus(categoria);
+            _categoriaRepository.EditarCategoria(categoria);
             return new ResponseApi(true, "Status modificado com sucesso!");
         }
     }

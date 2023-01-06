@@ -33,14 +33,7 @@ namespace EcommerceAPI.Infra.Repository
             return _context.Categorias.ToList();
         }
 
-        public Result EditarNome(Categoria categoriaAtualizar)
-        {
-            categoriaAtualizar.DataModificacao = DateTime.Now;
-            _context.SaveChanges();
-            return Result.Ok();
-        }
-
-        public Result EditarStatus(Categoria categoriaAtualizar)
+        public Result EditarCategoria(Categoria categoriaAtualizar)
         {
             categoriaAtualizar.DataModificacao = DateTime.Now;
             _context.SaveChanges();

@@ -25,9 +25,6 @@ namespace EcommerceAPI.Infra.Queries
         {
             var queryArgs = new DynamicParameters();
 
-            queryArgs.Add("Pag", filtros.Pagina);
-            queryArgs.Add("ItensPagina", filtros.ItensPagina);
-
             var query = @"SELECT 
                             c.Id as CategoriaId,
                             c.Nome,
@@ -75,19 +72,14 @@ namespace EcommerceAPI.Infra.Queries
                 query += " ORDER BY c.nome ";
             }
 
-            var offset = (filtros.Pagina - 1) * filtros.ItensPagina;
-
-            query += " LIMIT @ItensPagina OFFSET @offset";
-
-            queryArgs.Add("offset", offset);
-
             var result = await _connection.QueryAsync(query, queryArgs);
 
             Slapper.AutoMapper.Configuration.AddIdentifier(typeof(ReadCategoriaDto), "CategoriaId");
             Slapper.AutoMapper.Configuration.AddIdentifier(typeof(Subcategorias), "SubcategoriaId");
             Slapper.AutoMapper.Configuration.AddIdentifier(typeof(Produtos), "ProdutoId");
 
-            var resultFinal = Slapper.AutoMapper.MapDynamic<ReadCategoriaDto>(result);
+            var resultFinal = Slapper.AutoMapper.MapDynamic<ReadCategoriaDto>(result).Skip((filtros.Pagina - 1) * filtros.ItensPagina).
+                    Take(filtros.ItensPagina);
             return resultFinal;
         }
     }
