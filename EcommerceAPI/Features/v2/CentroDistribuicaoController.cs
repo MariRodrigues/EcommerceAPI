@@ -15,7 +15,27 @@ namespace EcommerceAPI.Features.v2
         [SwaggerOperation(Summary = "Cadastra novo Centro de Distribuição",
                           OperationId = "Post")]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> CadastrarCategoria([FromServices] IMediator mediator, [FromBody] CreateCentroCommand request)
+        public async Task<IActionResult> CreateCD([FromServices] IMediator mediator, [FromBody] CreateCentroCommand request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [SwaggerOperation(Summary = "Atualiza Centro de Distribuição",
+                          OperationId = "Post")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> EditCD([FromServices] IMediator mediator, [FromBody] UpdateCentroCommand request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut("status")]
+        [SwaggerOperation(Summary = "Atualiza o status do Centro de Distribuição",
+                          OperationId = "Post")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> EditStatusCD([FromServices] IMediator mediator, [FromBody] UpdateStatusCentroCommand request)
         {
             var response = await mediator.Send(request);
             return Ok(response);

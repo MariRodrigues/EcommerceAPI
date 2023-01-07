@@ -21,14 +21,16 @@ namespace EcommerceAPI.Application.Handlers.CentrosDistribuicao
         private readonly CentroQueries _centroQueries;
         private readonly IMapper _mapper;
         private readonly CentroDistribuicaoRepository _centroRepository;
+        private readonly ProdutoRepository _produtoRepository;
 
         static readonly HttpClient client = new();
 
-        public CentroDistribuicaoHandler(CentroQueries centroQueries, IMapper mapper, CentroDistribuicaoRepository centroRepository)
+        public CentroDistribuicaoHandler(CentroQueries centroQueries, IMapper mapper, CentroDistribuicaoRepository centroRepository, ProdutoRepository produtoRepository)
         {
             _centroQueries = centroQueries;
             _mapper = mapper;
             _centroRepository = centroRepository;
+            _produtoRepository = produtoRepository;
         }
 
         public async Task<ResponseApi> Handle(CreateCentroCommand request, CancellationToken cancellationToken)
@@ -45,6 +47,40 @@ namespace EcommerceAPI.Application.Handlers.CentrosDistribuicao
             }
             _centroRepository.Cadastrar(centro);
             return new ResponseApi(true, "CD criado com sucesso.");
+        }
+
+        public async Task<ResponseApi> Handle(UpdateCentroCommand request, CancellationToken cancellationToken)
+        {
+            var centroAtualizar = _centroRepository.GetById(request.Id);
+
+            if (centroAtualizar == null)
+            {
+                return new ResponseApi(false, "Centro de distribuição não localizado.");
+            }
+
+            var enderecoJson = await RetornarEnderecoViaCEP(request.CEP);
+
+            _mapper.Map(enderecoJson, centroAtualizar);
+            centroAtualizar.Cidade = enderecoJson.Localidade;
+            _mapper.Map(request, centroAtualizar);
+
+            _centroRepository.EditarCentro(centroAtualizar);
+
+            return new ResponseApi(true, "CD atualizado com sucesso.");
+        }
+
+        public async Task<ResponseApi> Handle(UpdateStatusCentroCommand request, CancellationToken cancellationToken)
+        {
+            var centro = _centroRepository.GetById(request.Id);
+            var listaProdutos = _produtoRepository.BuscarPorCentro(centro.Id);
+
+            if (listaProdutos.Count != 0)
+            {
+                return new ResponseApi(true, "Não é possível modificar pois há produtos associados.");
+            }
+
+            _centroRepository.EditarStatusCentro(centro);
+            return new ResponseApi(true, "Status do CD atualizado com sucesso.");
         }
 
         private static async Task<EnderecoJson> RetornarEnderecoViaCEP(string cep)
