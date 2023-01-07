@@ -13,7 +13,6 @@ namespace EcommerceAPI.Features.v2
 {
     [ApiController]
     [ApiVersion("2")]
-    //[Authorize(Roles = "admin")]
     [Route("v{version:apiVersion}/[controller]")]
     public class CategoriaController : ControllerBase
     {

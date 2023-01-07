@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 namespace EcommerceAPI.Application.Handlers.CentrosDistribuicao
 {
     public interface ICentroDistribuicaoHandler :
-        IRequestHandler<CreateCentroCommand, ResponseApi>
+        IRequestHandler<CreateCentroCommand, ResponseApi>,
+        IRequestHandler<UpdateCentroCommand, ResponseApi>,
+        IRequestHandler<UpdateStatusCentroCommand, ResponseApi>
     {
     }
 }
