@@ -11,7 +11,6 @@ namespace EcommerceAPI.Controller
     [Route("v{version:apiVersion}/[controller]")]
     public class CategoriaController : ControllerBase
     {
-
         private readonly CategoriaService _categoriaService;
 
         public CategoriaController(CategoriaService categoriaService)
