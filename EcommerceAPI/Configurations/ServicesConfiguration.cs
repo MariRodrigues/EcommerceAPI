@@ -17,17 +17,17 @@ namespace EcommerceAPI.Configurations
     {
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddScoped<CentroDistribuicaoRepository, CentroDistribuicaoRepository>();
-            services.AddScoped<CentroDistribuicaoService, CentroDistribuicaoService>();
-            services.AddScoped<CategoriaRepository, CategoriaRepository>();
-            services.AddScoped<CategoriaService, CategoriaService>();
-            services.AddScoped<SubcategoriaRepository, SubcategoriaRepository>();
-            services.AddScoped<SubcategoriaService, SubcategoriaService>();
-            services.AddScoped<ProdutoRepository, ProdutoRepository>();
-            services.AddScoped<ProdutoService, ProdutoService>();
-            services.AddScoped<CentroQueries, CentroQueries>();
-            services.AddScoped<CategoriaQueries, CategoriaQueries>();
-            services.AddScoped<SubcategoriaQueries, SubcategoriaQueries>();
+            services.AddScoped<CentroDistribuicaoRepository>();
+            services.AddScoped<CentroDistribuicaoService>();
+            services.AddScoped<CategoriaRepository>();
+            services.AddScoped<CategoriaService>();
+            services.AddScoped<SubcategoriaRepository>();
+            services.AddScoped<SubcategoriaService>();
+            services.AddScoped<ProdutoRepository>();
+            services.AddScoped<ProdutoService>();
+            services.AddScoped<CentroQueries>();
+            services.AddScoped<CategoriaQueries>();
+            services.AddScoped<SubcategoriaQueries>();
             services.AddScoped<ProdutoQueries>();
 
             var assembly = AppDomain.CurrentDomain.Load("EcommerceAPI.Application");
@@ -41,9 +41,7 @@ namespace EcommerceAPI.Configurations
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
-            
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);          
 
             return services;
         }

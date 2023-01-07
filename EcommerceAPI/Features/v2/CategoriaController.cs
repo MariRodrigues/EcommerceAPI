@@ -1,16 +1,11 @@
 ﻿using EcommerceAPI.Application.Commands.Categorias;
-using EcommerceAPI.Application.Handlers.Categorias;
 using EcommerceAPI.Application.Services;
-using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Domain.Categorias.DTO;
 using EcommerceAPI.Infra.Queries;
-using EcommerceAPI.Infra.Repository;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,7 +30,7 @@ namespace EcommerceAPI.Features.v2
         [SwaggerOperation(Summary = "Cadastra nova categoria",
                           OperationId = "Post")]
         [ProducesResponseType(201)]
-        public IActionResult CadastrarCategoria([FromServices]IMediator mediator ,[FromBody] CreateCategoriaCommand request)
+        public IActionResult CadastrarCategoria([FromServices]IMediator mediator, [FromBody] CreateCategoriaCommand request)
         {
             var response = mediator.Send(request);
             return Ok(response);
@@ -48,8 +43,6 @@ namespace EcommerceAPI.Features.v2
         public async Task<IActionResult> RecuperaCategoria([FromQuery] FiltrosCategoria filtros)
         {
             var response = await _categoriaQueries.GetAllFilter(filtros);
-            var resposta = response.FirstOrDefault().ToString();
-            Console.WriteLine(resposta);
             return Ok(response);
         }
 
