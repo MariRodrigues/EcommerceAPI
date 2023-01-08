@@ -5,11 +5,11 @@ API Rest para um ecommerce.
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- [Entity Framework](https://docs.microsoft.com/pt-br/ef/core/what-is-new/ef-core-5.0/whatsnew)
-- [Identity](https://docs.microsoft.com/pt-br/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio)
-- [AutoMapper](https://automapper.org/)
-- [Dapper](https://github.com/DapperLib/Dapper)
-- [Swagger](https://swagger.io/)
+- [Entity Framework](https://docs.microsoft.com/pt-br/ef/core/what-is-new/ef-core-5.0/whatsnew) - ORM
+- [MySql] () - Banco de dados
+- [AutoMapper](https://automapper.org/) 
+- [Dapper](https://github.com/DapperLib/Dapper) - Consultas avançadas
+- [Swagger](https://swagger.io/) - Documentação
 
 # Abrir e rodar o projeto
 Após clonar o repositório, abra-o com o Visual Studio, clicando duas vezes no arquivo .sln do projeto.
