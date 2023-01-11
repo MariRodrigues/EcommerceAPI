@@ -6,7 +6,7 @@ API Rest para um ecommerce.
 As seguintes ferramentas foram usadas na construção do projeto:
 
 - [Entity Framework](https://docs.microsoft.com/pt-br/ef/core/what-is-new/ef-core-5.0/whatsnew) - ORM
-- [MySql] (https://www.mysql.com/) - Banco de dados
+- [MySql](https://www.mysql.com/) - Banco de dados
 - [AutoMapper](https://automapper.org/) 
 - [Dapper](https://github.com/DapperLib/Dapper) - Consultas avançadas
 - [Swagger](https://swagger.io/) - Documentação
