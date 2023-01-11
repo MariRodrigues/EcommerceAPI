@@ -1,4 +1,5 @@
 ﻿using EcommerceAPI.Application.Services;
+using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Infra.Data;
 using EcommerceAPI.Infra.Queries;
 using EcommerceAPI.Infra.Repository;
@@ -17,13 +18,13 @@ namespace EcommerceAPI.Configurations
     {
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddScoped<CentroDistribuicaoRepository>();
+            services.AddScoped<ICentroDistribuicaoRepository, CentroDistribuicaoRepository>();
             services.AddScoped<CentroDistribuicaoService>();
-            services.AddScoped<CategoriaRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<CategoriaService>();
-            services.AddScoped<SubcategoriaRepository>();
+            services.AddScoped<ISubcategoriaRepository, SubcategoriaRepository>();
             services.AddScoped<SubcategoriaService>();
-            services.AddScoped<ProdutoRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<ProdutoService>();
             services.AddScoped<CentroQueries>();
             services.AddScoped<CategoriaQueries>();

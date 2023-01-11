@@ -1,13 +1,13 @@
-﻿using EcommerceAPI.Domain.Subcategorias;
+﻿using EcommerceAPI.Domain.Repository;
+using EcommerceAPI.Domain.Subcategorias;
 using EcommerceAPI.Infra.Data;
-using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace EcommerceAPI.Infra.Repository
 {
-    public class SubcategoriaRepository
+    public class SubcategoriaRepository : ISubcategoriaRepository
     {
         private readonly AppDbContext _context;
 
@@ -33,20 +33,20 @@ namespace EcommerceAPI.Infra.Repository
             return _context.Subcategorias.ToList();
         }
 
-        public Result EditarSubcategoria(Subcategoria subcategoria)
+        public Subcategoria EditarSubcategoria(Subcategoria subcategoria)
         {
             subcategoria.DataModificacao = DateTime.Now;
             _context.Update(subcategoria);
             _context.SaveChanges();
-            return Result.Ok();
+            return subcategoria;
         }
 
-        public Result EditarStatus(Subcategoria subcategoria)
+        public Subcategoria EditarStatus(Subcategoria subcategoria)
         {
             subcategoria.DataModificacao = DateTime.Now;
             _context.Update(subcategoria);
             _context.SaveChanges();
-            return Result.Ok();
+            return subcategoria;
         }
 
         public void RemoverSubcategoria(Subcategoria subcategoria)

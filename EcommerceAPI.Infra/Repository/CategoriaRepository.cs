@@ -1,13 +1,13 @@
 ﻿using EcommerceAPI.Domain.Categorias;
+using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Infra.Data;
-using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EcommerceAPI.Infra.Repository
+namespace EcommerceAPI.Infra.Repository 
 {
-    public class CategoriaRepository
+    public class CategoriaRepository : ICategoriaRepository
     {
         private readonly AppDbContext _context;
 

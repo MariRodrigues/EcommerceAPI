@@ -2,12 +2,9 @@
 using EcommerceAPI.Application.Commands.Categorias;
 using EcommerceAPI.Application.Response;
 using EcommerceAPI.Domain.Categorias;
-using EcommerceAPI.Infra.Repository;
-using MediatR;
+using EcommerceAPI.Domain.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,12 +12,12 @@ namespace EcommerceAPI.Application.Handlers.Categorias
 {
     public class CategoriaHandler : ICategoriaHandler
     {
-        private readonly CategoriaRepository _categoriaRepository;
-        private readonly ProdutoRepository _produtoRepository;
-        private readonly SubcategoriaRepository _subcategoriaRepository;
+        private readonly ICategoriaRepository _categoriaRepository;
+        private readonly IProdutoRepository _produtoRepository;
+        private readonly ISubcategoriaRepository _subcategoriaRepository;
         private readonly IMapper _mapper;
 
-        public CategoriaHandler(CategoriaRepository categoriaRepository, IMapper mapper, ProdutoRepository produtoRepository, SubcategoriaRepository subcategoriaRepository)
+        public CategoriaHandler(ICategoriaRepository categoriaRepository, IMapper mapper, IProdutoRepository produtoRepository, ISubcategoriaRepository subcategoriaRepository)
         {
             _categoriaRepository = categoriaRepository;
             _mapper = mapper;

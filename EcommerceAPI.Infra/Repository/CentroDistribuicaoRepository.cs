@@ -1,32 +1,25 @@
-﻿using Dapper;
-using EcommerceAPI.Domain.Centros;
-using EcommerceAPI.Domain.Centros.DTO;
+﻿using EcommerceAPI.Domain.Centros;
+using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Infra.Data;
-using FluentResults;
-using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace EcommerceAPI.Infra.Repository
 {
-    public class CentroDistribuicaoRepository
+    public class CentroDistribuicaoRepository : ICentroDistribuicaoRepository
     {
         private readonly AppDbContext _context;
-        private readonly IConfiguration _configuration;
 
-        public CentroDistribuicaoRepository(AppDbContext context, IConfiguration configuration)
+        public CentroDistribuicaoRepository(AppDbContext context)
         {
             _context = context;
-            _configuration = configuration;
         }
 
-        public Result Cadastrar(CentroDistribuicao centro)
+        public CentroDistribuicao Cadastrar(CentroDistribuicao centro)
         {
             _context.CentrosDistribuicao.Add(centro);
             _context.SaveChanges();
-            return Result.Ok();
+            return centro;
         }
 
         public CentroDistribuicao GetById(int id)
@@ -49,12 +42,12 @@ namespace EcommerceAPI.Infra.Repository
             _context.SaveChanges();
         }
 
-        public Result EditarCentro(CentroDistribuicao centroAtualizar)
+        public CentroDistribuicao EditarCentro(CentroDistribuicao centroAtualizar)
         {
             centroAtualizar.DataModificacao = DateTime.Now;
             _context.Update(centroAtualizar);
             _context.SaveChanges();
-            return Result.Ok();
+            return centroAtualizar;
         }
     }
 }

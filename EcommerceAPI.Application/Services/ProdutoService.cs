@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EcommerceAPI.Domain.Produtos;
 using EcommerceAPI.Domain.Produtos.DTO;
-using EcommerceAPI.Infra.Repository;
+using EcommerceAPI.Domain.Repository;
 using System.Collections.Generic;
 
 namespace EcommerceAPI.Application.Services
@@ -9,11 +9,11 @@ namespace EcommerceAPI.Application.Services
     public class ProdutoService
     {
         private readonly IMapper _mapper;
-        private readonly ProdutoRepository _produtoRepository;
-        private readonly CategoriaRepository _categoriaRepository;
-        private readonly SubcategoriaRepository _subcategoriaRepository;
+        private readonly IProdutoRepository _produtoRepository;
+        private readonly ICategoriaRepository _categoriaRepository;
+        private readonly ISubcategoriaRepository _subcategoriaRepository;
 
-        public ProdutoService(IMapper mapper, ProdutoRepository repository, CategoriaRepository categoriaRepository, SubcategoriaRepository subcategoriaRepository)
+        public ProdutoService(IMapper mapper, IProdutoRepository repository, ICategoriaRepository categoriaRepository, ISubcategoriaRepository subcategoriaRepository)
         {
             _mapper = mapper;
             _produtoRepository = repository;

@@ -4,6 +4,7 @@ using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Domain.Centros;
 using EcommerceAPI.Domain.Produtos;
 using EcommerceAPI.Domain.Produtos.DTO;
+using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Infra.Data;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -13,7 +14,7 @@ using System.Linq;
 
 namespace EcommerceAPI.Infra.Repository
 {
-    public class ProdutoRepository
+    public class ProdutoRepository : IProdutoRepository
     {
         private readonly AppDbContext _context;
         private readonly IConfiguration _configuration;

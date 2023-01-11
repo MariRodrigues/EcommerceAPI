@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EcommerceAPI.Domain.Categorias;
+using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Domain.Subcategorias;
 using EcommerceAPI.Domain.Subcategorias.DTO;
 using EcommerceAPI.Infra.Repository;
@@ -14,11 +15,11 @@ namespace EcommerceAPI.Application.Services
     public class SubcategoriaService
     {
         private readonly IMapper _mapper;
-        private readonly SubcategoriaRepository _subcategoriaRepository;
-        private readonly CategoriaRepository _categoriaRepository;
+        private readonly ISubcategoriaRepository _subcategoriaRepository;
+        private readonly ICategoriaRepository _categoriaRepository;
 
-        public SubcategoriaService(IMapper mapper, SubcategoriaRepository subcategoriaRepository, 
-            CategoriaRepository categoriaRepository)
+        public SubcategoriaService(IMapper mapper, ISubcategoriaRepository subcategoriaRepository, 
+            ICategoriaRepository categoriaRepository)
         {
             _mapper = mapper;
             _subcategoriaRepository = subcategoriaRepository;

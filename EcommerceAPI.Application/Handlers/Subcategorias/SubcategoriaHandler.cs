@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EcommerceAPI.Application.Commands.Subcategorias;
 using EcommerceAPI.Application.Response;
+using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Domain.Subcategorias;
 using EcommerceAPI.Domain.Subcategorias.DTO;
 using EcommerceAPI.Infra.Queries;
@@ -16,11 +17,11 @@ namespace EcommerceAPI.Application.Handlers.Subcategorias
 {
     public class SubcategoriaHandler : ISubcategoriaHandler
     {
-        private readonly SubcategoriaRepository _subcategoriaRepository;
+        private readonly ISubcategoriaRepository _subcategoriaRepository;
         private readonly SubcategoriaQueries _subcategoriaQueries;
         private readonly IMapper _mapper;
 
-        public SubcategoriaHandler(SubcategoriaRepository subcategoriaRepository, SubcategoriaQueries subcategoriaQueries, IMapper mapper)
+        public SubcategoriaHandler(ISubcategoriaRepository subcategoriaRepository, SubcategoriaQueries subcategoriaQueries, IMapper mapper)
         {
             _subcategoriaRepository = subcategoriaRepository;
             _subcategoriaQueries = subcategoriaQueries;

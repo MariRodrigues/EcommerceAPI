@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Domain.Categorias.DTO;
+using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Domain.Subcategorias;
 using EcommerceAPI.Infra.Queries;
-using EcommerceAPI.Infra.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +14,13 @@ namespace EcommerceAPI.Application.Services
     public class CategoriaService
     {
         private readonly IMapper _mapper;
-        private readonly CategoriaRepository _categoriaRepository;
-        private readonly ProdutoRepository _produtoRepository;
-        private readonly SubcategoriaRepository _subcategoriaRepository;
+        private readonly ICategoriaRepository _categoriaRepository;
+        private readonly IProdutoRepository _produtoRepository;
+        private readonly ISubcategoriaRepository _subcategoriaRepository;
         private readonly CategoriaQueries _categoriaQueries;
 
-        public CategoriaService(IMapper mapper, CategoriaRepository categoriaRepository,
-            ProdutoRepository produtoRepository, SubcategoriaRepository subcategoriaRepository, CategoriaQueries categoriaQueries)
+        public CategoriaService(IMapper mapper, ICategoriaRepository categoriaRepository,
+            IProdutoRepository produtoRepository, ISubcategoriaRepository subcategoriaRepository, CategoriaQueries categoriaQueries)
         {
             _mapper = mapper;
             _categoriaRepository = categoriaRepository;
@@ -35,7 +35,6 @@ namespace EcommerceAPI.Application.Services
 
             return categoria;
         }
-
         public ReadCategoriaDto RecuperaCategoriaPorId(int id)
         {
             FiltrosCategoria filtros = new FiltrosCategoria()
