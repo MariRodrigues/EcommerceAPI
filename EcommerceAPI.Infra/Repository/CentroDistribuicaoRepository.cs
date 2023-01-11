@@ -51,6 +51,7 @@ namespace EcommerceAPI.Infra.Repository
 
         public Result EditarCentro(CentroDistribuicao centroAtualizar)
         {
+            centroAtualizar.DataModificacao = DateTime.Now;
             _context.Update(centroAtualizar);
             _context.SaveChanges();
             return Result.Ok();
