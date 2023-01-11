@@ -1,20 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using Swashbuckle.AspNetCore.Annotations;
+﻿using EcommerceAPI.Application.Commands.Subcategorias;
 using EcommerceAPI.Domain.Subcategorias.DTO;
-using EcommerceAPI.Application.Services;
+using EcommerceAPI.Infra.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace EcommerceAPI.Controller
 {
     [ApiController]
-    [ApiVersion("1", Deprecated = true)]
+    [ApiVersion("1")]
+    //[Authorize(Roles = "admin")]
     [Route("v{version:apiVersion}/[controller]")]
     public class SubcategoriaController : ControllerBase
     {
-        private readonly SubcategoriaService _subcategoriaService;
-        public SubcategoriaController(SubcategoriaService subcategoriaService)
+
+        private readonly SubcategoriaQueries _subcategoriaQueries;
+
+        public SubcategoriaController(SubcategoriaQueries subcategoriaQueries)
         {
-            _subcategoriaService = subcategoriaService;
+            _subcategoriaQueries = subcategoriaQueries;
         }
 
         [HttpPost]
@@ -22,50 +27,46 @@ namespace EcommerceAPI.Controller
                           OperationId = "Post")]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public IActionResult AdicionarSubcategoria([FromBody] CreateSubcategoriaDto subcategoriaDTO)
+        public IActionResult AdicionarSubcategoria([FromServices] IMediator mediator, [FromBody] CreateSubcategoriaCommand request)
         {
-            var result = _subcategoriaService.CadastrarSubcategoria(subcategoriaDTO);
-            if (result != null)
+            var result = mediator.Send(request);
+            if (result.IsCompleted)
             {
-                return Ok();
-            }           
+                return CreatedAtAction(nameof(AdicionarSubcategoria), new { result.Id }, result);
+            }
             return BadRequest();
         }
 
-        [HttpPut("{id}")]
-        [SwaggerOperation(Summary = "Editar o nome da subcategoria por Id",
-                          OperationId = "Put")]
+        [HttpGet]
+        [SwaggerOperation(Summary = "Pesquisar categorias com filtros",
+                          OperationId = "Get")]
         [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public IActionResult EditarNomeSubcategoria(int id, [FromBody] UpdateSubcategoriaDto subcategoriaDto)
+        public async Task<IActionResult> RecuperaCategoria([FromQuery] SubcategoriaFiltros filtros)
         {
-            var result = _subcategoriaService.EditarNomeSubcategoria(id, subcategoriaDto);
-            if (result.IsFailed) return NotFound();
-            return Ok();
+            return Ok(await _subcategoriaQueries.RecuperarSubcategoriaFilter(filtros));
         }
 
-        [HttpPut("status/{id}")]
+        [HttpPut]
+        [SwaggerOperation(Summary = "Atualiza subcategoria",
+                          OperationId = "Post")]
+        [ProducesResponseType(200)]
+        public IActionResult AtualizaSubcategoria([FromServices] IMediator mediator, [FromBody] UpdateSubcategoriaCommand request)
+        {
+            var response = mediator.Send(request);
+
+            return Ok(response);
+        }
+
+        [HttpPut("status/")]
         [SwaggerOperation(Summary = "Editar o status da subcategoria por Id",
                           OperationId = "Put")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult EditarStatusSubcategoria(int id)
+        public IActionResult EditarStatusCategoria([FromServices] IMediator mediator, UpdateStatusSubcategoriaCommand request)
         {
-            var result = _subcategoriaService.EditarStatusSubcategoria(id);
-            if (result.IsFailed) return NotFound();
-            return Ok();
-        }
+            var response = mediator.Send(request);
 
-        [HttpDelete("{id}")]
-        [SwaggerOperation(Summary = "Deletar subcategoria por Id",
-                          OperationId = "Delete")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public IActionResult DeletarSubcategoria(int id)
-        {
-            var result = _subcategoriaService.DeletarSubcategoria(id);
-            if (result.IsFailed) return NotFound();
-            return Ok();
+            return Ok(response);
         }
     }
 }

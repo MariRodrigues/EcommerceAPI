@@ -1,74 +1,75 @@
-﻿using EcommerceAPI.Application.Services;
+﻿using EcommerceAPI.Application.Commands.Centros;
+using EcommerceAPI.Application.Services;
 using EcommerceAPI.Domain.Centros.DTO;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EcommerceAPI.Controller
 {
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion("1")]
+    [Route("v{version:apiVersion}/[controller]")]
     public class CentroDistribuicaoController : ControllerBase
     {
         private readonly CentroDistribuicaoService _centroService;
+
         public CentroDistribuicaoController(CentroDistribuicaoService centroService)
         {
             _centroService = centroService;
         }
 
         [HttpPost]
-        [SwaggerOperation(Summary = "Cadastra novo centro de distribuição",
+        [SwaggerOperation(Summary = "Cadastra novo Centro de Distribuição",
                           OperationId = "Post")]
-        [ProducesResponseType(201)]
-        public async Task<IActionResult> CadastrarCentro([FromBody] CreateCentroDto createCentroDto)
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> CreateCD([FromServices] IMediator mediator, [FromBody] CreateCentroCommand request)
         {
-            var centro = await _centroService.CadastrarCentro(createCentroDto);
-            return CreatedAtAction(nameof(BuscarCentroPorId), new { Id = centro.Id }, centro);
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [SwaggerOperation(Summary = "Atualiza Centro de Distribuição",
+                          OperationId = "Post")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> EditCD([FromServices] IMediator mediator, [FromBody] UpdateCentroCommand request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut("status")]
+        [SwaggerOperation(Summary = "Atualiza o status do Centro de Distribuição",
+                          OperationId = "Post")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> EditStatusCD([FromServices] IMediator mediator, [FromBody] UpdateStatusCentroCommand request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        [SwaggerOperation(Summary = "Busca CD por ID",
+        [SwaggerOperation(Summary = "Busca CD por Id",
                           OperationId = "Get")]
-        [ProducesResponseType(typeof(ReadCentroDistribuicao), 200)]
-        public IActionResult BuscarCentroPorId(int id)
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetById(int id)
         {
-            var centro = _centroService.RecuperarCentroPorId(id);
-            return Ok(centro);
+            FiltrosCD filtrosCD = new() { Id = id };
+            var response = _centroService.PesquisarCentros(filtrosCD).FirstOrDefault();
+            return Ok(response);
         }
 
         [HttpGet]
-        [SwaggerOperation(Summary = "Busca CD utilizando filtros",
+        [SwaggerOperation(Summary = "Pesquisa Centros com filtros",
                           OperationId = "Get")]
-        [ProducesResponseType(typeof(ReadCentroDistribuicao), 200)]
-        public IActionResult PesquisarCentros([FromQuery] FiltrosCD filtros)
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetAll([FromQuery] FiltrosCD filtros)
         {
-            var result = _centroService.PesquisarCentros(filtros);
-            return Ok(result);
+            var response = _centroService.PesquisarCentros(filtros);
+            return Ok(response);
         }
-
-        [HttpPut("status/{id}")]
-        [SwaggerOperation(Summary = "Editar o status do CD por Id",
-                          OperationId = "Put")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        public IActionResult EditarStatus(int id)
-        {
-            var result = _centroService.EditarStatusCentro(id);
-            if (result.IsFailed) return BadRequest(result);
-            return NoContent();
-        }
-
-        [HttpPut("{id}")]
-        [SwaggerOperation(Summary = "Editar o CD por Id",
-                          OperationId = "Put")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        public async Task<IActionResult> EditarCentro(int id, [FromBody] UpdateCentroDto centroDto)
-        {
-            var result = await _centroService.EditarCentro(id, centroDto);
-            if (result.IsFailed) return BadRequest(result);
-            return NoContent();
-        }
-
     }
 }

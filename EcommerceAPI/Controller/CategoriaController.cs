@@ -1,80 +1,80 @@
-﻿using EcommerceAPI.Application.Services;
+﻿using EcommerceAPI.Application.Commands.Categorias;
+using EcommerceAPI.Application.Services;
 using EcommerceAPI.Domain.Categorias.DTO;
+using EcommerceAPI.Infra.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Collections.Generic;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EcommerceAPI.Controller
 {
     [ApiController]
-    [ApiVersion("1", Deprecated = true)]
+    [ApiVersion("1")]
     [Route("v{version:apiVersion}/[controller]")]
     public class CategoriaController : ControllerBase
     {
         private readonly CategoriaService _categoriaService;
+        private readonly CategoriaQueries _categoriaQueries;
 
-        public CategoriaController(CategoriaService categoriaService)
+        public CategoriaController(CategoriaService categoriaService, CategoriaQueries categoriaQueries)
         {
             _categoriaService = categoriaService;
+            _categoriaQueries = categoriaQueries;
         }
 
         [HttpPost]
         [SwaggerOperation(Summary = "Cadastra nova categoria",
                           OperationId = "Post")]
         [ProducesResponseType(201)]
-        public IActionResult AdicionarCategoria([FromBody] CreateCategoriaDto categoriaDto)
+        public IActionResult CadastrarCategoria([FromServices] IMediator mediator, [FromBody] CreateCategoriaCommand request)
         {
-            var categoria = _categoriaService.CadastrarCategoria(categoriaDto);
-            return CreatedAtAction(nameof(RecuperaCategoriaPorId), new { Id = categoria.Id }, categoria);
+            var response = mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [SwaggerOperation(Summary = "Pesquisar categorias com filtros",
+                          OperationId = "Get")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> RecuperaCategoria([FromQuery] FiltrosCategoria filtros)
+        {
+            var response = await _categoriaQueries.GetAllFilter(filtros);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Busca categoria por ID",
                           OperationId = "Get")]
-        [ProducesResponseType(typeof(ReadCategoriaDto), 200)]
+        [ProducesResponseType(200)]
         public IActionResult RecuperaCategoriaPorId(int id)
         {
-            ReadCategoriaDto categoriaDto = _categoriaService.RecuperaCategoriaPorId(id);         
+            ReadCategoriaDto categoriaDto = _categoriaService.RecuperaCategoriaPorId(id);
             return Ok(categoriaDto);
         }
 
-        [HttpGet]
-        [SwaggerOperation(Summary = "Pesquisa categorias utilizando filtros")]
-        [ProducesResponseType(typeof(List<ReadCategoriaDto>), 200)]
-        [ProducesResponseType(400)]
-        public IActionResult PesquisarCategorias([FromQuery] FiltrosCategoria filtros)
+        [HttpPut]
+        [SwaggerOperation(Summary = "Atualiza categoria",
+                          OperationId = "Post")]
+        [ProducesResponseType(200)]
+        public IActionResult AtualizaCategoria([FromServices] IMediator mediator, [FromBody] UpdateCategoriaCommand request)
         {
-            var result = _categoriaService.PesquisarCategorias(filtros);
-            
-            if (result != null)
-            {
-                return Ok(result);
-            }
-            return BadRequest();
-        }        
-
-        [HttpPut("{id}")]
-        [SwaggerOperation(Summary = "Editar nome da categoria por Id",
-                          OperationId = "Put")]
-        [ProducesResponseType(typeof(ReadCategoriaDto), 200)]
-        [ProducesResponseType(404)]
-        public IActionResult EditarNomeCategoria(int id, [FromBody] UpdateCategoriaDto categoriaDto)
-        {
-            var retorno = _categoriaService.EditarCategoria(id, categoriaDto);            
-            if (retorno != null) return Ok(retorno);
-            return NotFound();
+            var response = mediator.Send(request);
+            return Ok(response);
         }
-        
-        [HttpPut("status/{id}")]
+
+        [HttpPut("status/")]
         [SwaggerOperation(Summary = "Editar o status da categoria por Id",
                           OperationId = "Put")]
-        [ProducesResponseType(typeof(ReadCategoriaDto), 200)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult EditarStatusCategoria(int id)
+        public IActionResult EditarStatusCategoria([FromServices] IMediator mediator, UpdateStatusCategoriaCommand request)
         {
-            var result = _categoriaService.EditarStatusCategoria(id);
-            if (result != null) return Ok(result);
-            return NotFound();       
+            var response = mediator.Send(request);
+
+            return Ok(response);
         }
     }
 }

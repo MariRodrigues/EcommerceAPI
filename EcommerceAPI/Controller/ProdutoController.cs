@@ -1,71 +1,66 @@
-﻿using EcommerceAPI.Application.Services;
+﻿using EcommerceAPI.Application.Commands.Produtos;
+using EcommerceAPI.Application.Services;
 using EcommerceAPI.Domain.Produtos.DTO;
-using EcommerceAPI.Infra.Repository;
+using EcommerceAPI.Infra.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace EcommerceAPI.Controller
 {
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion("1")]
+    //[Authorize(Roles = "admin")]
+    [Route("v{version:apiVersion}/[controller]")]
     public class ProdutoController : ControllerBase
     {
-        private readonly ProdutoService _service;
-        private readonly ProdutoRepository _repository;
+        private readonly ProdutoQueries _produtosQueries;
+        private readonly ProdutoService _produtoService;
 
-        public ProdutoController(ProdutoService service, ProdutoRepository repository)
+        public ProdutoController(ProdutoQueries produtosQueries, ProdutoService produtoService)
         {
-            _service = service;
-            _repository = repository;
+            _produtosQueries = produtosQueries;
+            _produtoService = produtoService;
         }
 
         [HttpPost]
-        [SwaggerOperation(Summary = "Cadastra produtos",
-                          OperationId = "Post")]
-        public IActionResult AdicionarProduto([FromBody] CreateProdutoDto produtoDto)
+        [SwaggerOperation(Summary = "Cadastrar novo produto")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> Post([FromServices] IMediator mediator, [FromBody] CreateProdutoCommand request)
         {
-            var produto = _service.CadastrarProduto(produtoDto);
-            if(produto == null)
-            {
-                return BadRequest();
-            }
-            return CreatedAtAction(nameof(RecuperaProdutoPorId), new { Id = produto.Id }, produto);
+            var response = mediator.Send(request);
+            return Ok(response);
         }
 
-        [HttpGet("{id}")]
-        [SwaggerOperation(Summary = "Busca produtos por ID",
-                          OperationId = "Get")]
-        [ProducesResponseType(typeof(ReadProdutoDto), 200)]
-        public IActionResult RecuperaProdutoPorId(int id)
+        [HttpPut]
+        [SwaggerOperation(Summary = "Atualizar produto")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> Put([FromServices] IMediator mediator, [FromBody] UpdateProdutoCommand request)
         {
-            var produtoDto = _service.RecuperarProdutoPorId(id);
-            return Ok(produtoDto);
+            var response = mediator.Send(request);
+            return Ok(response);
         }
 
         [HttpGet]
-        [SwaggerOperation(Summary = "Pesquisa por produtos utilizando filtros")]
-        [ProducesResponseType(typeof(ReadProdutoDto), 200)]
-        public IActionResult PesquisarProduto([FromQuery] FiltrosProduto filtros)
+        [SwaggerOperation(Summary = "Listar todos os produtos",
+                          OperationId = "GetAllProducts")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetAllProducts()
         {
-            var produtoDto = _repository.GetAll();
-
-            return Ok(produtoDto);
+            var result = _produtosQueries.GetAllProducts();
+            return Ok(result);
         }
 
-        [HttpPut("{id}")]
-        [SwaggerOperation(Summary = "Editar produtos por Id",
-                          OperationId = "Put")]
-        [ProducesResponseType(typeof(ReadProdutoDto), 200)]
-        [ProducesResponseType(404)]
-        public IActionResult EditarProduto(int id, [FromBody] UpdateProdutoDto produtoDto)
+        [HttpGet("search")]
+        [SwaggerOperation(Summary = "Buscar produtos com filtros",
+                          OperationId = "GetAllFilter")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetAllProducts([FromQuery] FiltrosProduto filtros)
         {
-            var produto = _service.EditarProduto(id, produtoDto);
-            if (produto == null)
-            {
-                return NotFound();
-            }
-            return Ok(produto);
+            //var result = _produtosQueries.GetAllFilter(filtros);
+            var result = _produtoService.PesquisarProdutos(filtros);
+            return Ok(result);
         }
-
     }
 }
