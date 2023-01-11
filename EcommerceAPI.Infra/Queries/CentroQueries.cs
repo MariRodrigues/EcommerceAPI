@@ -5,11 +5,7 @@ using EcommerceAPI.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcommerceAPI.Infra.Queries
 {
@@ -28,6 +24,11 @@ namespace EcommerceAPI.Infra.Queries
 
             var sql = "SELECT * FROM centrosdistribuicao WHERE ";
 
+            if (filtros.Id != null)
+            {
+                sql += "Id = @id and ";
+                queryArgs.Add("id", filtros.Id);
+            }
             if (filtros.Bairro != null)
             {
                 sql += "bairro like CONCAT('%',@bairro,'%') and ";
@@ -74,7 +75,7 @@ namespace EcommerceAPI.Infra.Queries
                 queryArgs.Add("logradouro", filtros.Logradouro);
             }
 
-            if (filtros.Status == null && filtros.Bairro == null
+            if (filtros.Id == null && filtros.Status == null && filtros.Bairro == null
                 && filtros.CEP == null && filtros.Numero == null
                 && filtros.Logradouro == null && filtros.Complemento == null
                 && filtros.Nome == null && filtros.Cidade == null)

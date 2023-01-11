@@ -1,7 +1,10 @@
 ﻿using EcommerceAPI.Application.Commands.Centros;
+using EcommerceAPI.Application.Services;
+using EcommerceAPI.Domain.Centros.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EcommerceAPI.Features.v2
@@ -11,6 +14,13 @@ namespace EcommerceAPI.Features.v2
     [Route("v{version:apiVersion}/[controller]")]
     public class CentroDistribuicaoController : ControllerBase
     {
+        private readonly CentroDistribuicaoService _centroService;
+
+        public CentroDistribuicaoController(CentroDistribuicaoService centroService)
+        {
+            _centroService = centroService;
+        }
+
         [HttpPost]
         [SwaggerOperation(Summary = "Cadastra novo Centro de Distribuição",
                           OperationId = "Post")]
@@ -38,6 +48,27 @@ namespace EcommerceAPI.Features.v2
         public async Task<IActionResult> EditStatusCD([FromServices] IMediator mediator, [FromBody] UpdateStatusCentroCommand request)
         {
             var response = await mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Busca CD por Id",
+                          OperationId = "Get")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetById(int id)
+        {
+            FiltrosCD filtrosCD = new() { Id = id };
+            var response = _centroService.PesquisarCentros(filtrosCD).FirstOrDefault();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [SwaggerOperation(Summary = "Pesquisa Centros com filtros",
+                          OperationId = "Get")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetAll([FromQuery] FiltrosCD filtros)
+        {
+            var response = _centroService.PesquisarCentros(filtros);
             return Ok(response);
         }
     }
