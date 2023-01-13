@@ -8,7 +8,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Entity Framework](https://docs.microsoft.com/pt-br/ef/core/what-is-new/ef-core-5.0/whatsnew) - ORM
 - [MySql](https://www.mysql.com/) - Banco de dados
 - [AutoMapper](https://automapper.org/) 
-- [Dapper](https://github.com/DapperLib/Dapper) - Consultas avançadas
+- [Dapper](https://github.com/DapperLib/Dapper) - Micro ORM
 - [Swagger](https://swagger.io/) - Documentação
 - [XUnit]() - Ferramenta de testes de unidade
 - [Bogus](https://github.com/bchavez/Bogus) - Framework para geração de dados Fake para auxiliar nos testes unitários
