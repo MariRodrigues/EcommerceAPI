@@ -6,6 +6,7 @@ using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Test.Application.Handlers.CategoriaCommandFactory;
 using EcommerceAPI.Test.Domain.Entities.Factory;
 using Moq;
+
 using System.Threading;
 using Xunit;
 
@@ -62,6 +63,7 @@ namespace EcommerceAPI.Test.Application.Handlers
         {
             // Arrange
             _categoriaRepositoryMock.Setup(x => x.CadastrarCategoria(It.IsAny<Categoria>())).Returns<Categoria>(null);
+
             var categoriaHandler = CreateCategoriaHandler();
             CancellationToken cancellationToken = default;
 
