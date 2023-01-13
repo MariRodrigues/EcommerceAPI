@@ -17,7 +17,11 @@ namespace EcommerceAPI.Application.Handlers.Categorias
         private readonly ISubcategoriaRepository _subcategoriaRepository;
         private readonly IMapper _mapper;
 
-        public CategoriaHandler(ICategoriaRepository categoriaRepository, IMapper mapper, IProdutoRepository produtoRepository, ISubcategoriaRepository subcategoriaRepository)
+        public CategoriaHandler(
+            ICategoriaRepository categoriaRepository, 
+            IMapper mapper, 
+            IProdutoRepository produtoRepository, 
+            ISubcategoriaRepository subcategoriaRepository)
         {
             _categoriaRepository = categoriaRepository;
             _mapper = mapper;
