@@ -1,7 +1,7 @@
 # Ecommerce API
 API Rest para um ecommerce.
 
-# Tecnologias
+## Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
@@ -13,7 +13,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [XUnit]() - Ferramenta de testes de unidade
 - [Bogus](https://github.com/bchavez/Bogus) - Framework para geração de dados Fake para auxiliar nos testes unitários
 
-# Abrir e rodar o projeto
+## Abrir e rodar o projeto
 Após clonar o repositório, abra-o com o Visual Studio, clicando duas vezes no arquivo .sln do projeto.
 
 Para rodar pela primeira vez, com o visual aberto, vá em ```Ferramentas``` > ```Gerenciador de pacotes do NuGet``` > ```Console do Gerenciador de Pacotes```
