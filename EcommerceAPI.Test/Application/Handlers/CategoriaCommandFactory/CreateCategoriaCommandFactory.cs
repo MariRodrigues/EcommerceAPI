@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using EcommerceAPI.Application.Commands.Categorias;
 
-namespace EcommerceAPI.Test.Application.Handlers.CategoriaFactory
+namespace EcommerceAPI.Test.Application.Handlers.CategoriaCommandFactory
 {
     public static class CreateCategoriaCommandFactory
     {

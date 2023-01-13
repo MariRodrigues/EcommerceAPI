@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceAPI.Test.Application.Handlers.CategoriaFactory
+namespace EcommerceAPI.Test.Application.Handlers.CategoriaCommandFactory
 {
     public static class UpdateCategoriaCommandFactory
     {
