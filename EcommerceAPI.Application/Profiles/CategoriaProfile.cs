@@ -10,9 +10,8 @@ namespace EcommerceAPI.Application.Profiles
     {
         public CategoriaProfile()
         {
-            CreateMap<CreateCategoriaDto, Categoria>();
-            CreateMap<UpdateCategoriaDto, Categoria>();
             CreateMap<UpdateCategoriaCommand, Categoria>();
+            CreateMap<CreateCategoriaCommand, Categoria>();
         }
         
     }
