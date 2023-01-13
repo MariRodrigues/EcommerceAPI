@@ -10,6 +10,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [AutoMapper](https://automapper.org/) 
 - [Dapper](https://github.com/DapperLib/Dapper) - Consultas avançadas
 - [Swagger](https://swagger.io/) - Documentação
+- [XUnit]() - Ferramenta de testes de unidade
+- [Bogus](https://github.com/bchavez/Bogus) - Framework para geração de dados Fake para auxiliar nos testes unitários
 
 # Abrir e rodar o projeto
 Após clonar o repositório, abra-o com o Visual Studio, clicando duas vezes no arquivo .sln do projeto.
