@@ -2,11 +2,14 @@
 using EcommerceAPI.Application.Commands.Categorias;
 using EcommerceAPI.Application.Handlers.Categorias;
 using EcommerceAPI.Domain.Categorias;
+using EcommerceAPI.Domain.Produtos;
 using EcommerceAPI.Domain.Repository;
+using EcommerceAPI.Domain.Subcategorias;
 using EcommerceAPI.Test.Application.Handlers.CategoriaCommandFactory;
 using EcommerceAPI.Test.Domain.Entities.Factory;
 using Moq;
-
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Xunit;
 
@@ -107,7 +110,7 @@ namespace EcommerceAPI.Test.Application.Handlers
                 .Returns(categoria);
             _categoriaRepositoryMock.Setup(x => x.EditarCategoria(It.IsAny<Categoria>())).Returns(categoria);
 
-            UpdateCategoriaCommand request = new() { Nome = "Teste" };
+            UpdateCategoriaCommand request = UpdateCategoriaCommandFactory.UpdateCategoriaCommand();
             CancellationToken cancellationToken = default;
 
             var categoriaHandler = CreateCategoriaHandler();
@@ -116,7 +119,86 @@ namespace EcommerceAPI.Test.Application.Handlers
             var result = await categoriaHandler.Handle(request, cancellationToken);
 
             //Assert
+            Assert.False(result.Success);
             Assert.Equal("Categoria não localizada", result.Message);
+        }
+
+        [Fact(DisplayName = "Deve ser possível atualizar status de categoria")]
+        public async void Deve_Ser_Possivel_Atualizar_Status_Categoria()
+        {
+            // Arrange
+            Categoria categoria = CategoriaFactory.Create();
+            List<Produto> listaProdutos = new();
+            List<Subcategoria> listaSubcategorias = new();
+
+            _categoriaRepositoryMock.Setup(x => x.GetById(It.IsAny<int>())).Returns(categoria);
+            _produtoRepositoryMock.Setup(x => x.GetAll()).Returns(listaProdutos);
+            _subcategoriaRepositoryMock.Setup(x => x.GetAll()).Returns(listaSubcategorias);
+            _categoriaRepositoryMock.Setup(x => x.EditarCategoria(It.IsAny<Categoria>())).Returns(categoria);
+
+            UpdateStatusCategoriaCommand request = UpdateStatusCategoriaCommandFactory.UpdateStatusCategoriaCommand();
+            CancellationToken cancellationToken = default;
+
+            var categoriaHandler = CreateCategoriaHandler();
+
+            // Act
+            var result = await categoriaHandler.Handle(request, cancellationToken);
+
+            //Assert
+            Assert.True(result.Success);
+        }
+
+        [Fact(DisplayName = "Não deve ser possível atualizar status de categoria inexistente")]
+        public async void Não_Deve_Atualizar_Status_Categoria_Nao_Localizada()
+        {
+            // Arrange
+            Categoria categoria = CategoriaFactory.Create();
+            List<Produto> listaProdutos = new();
+            List<Subcategoria> listaSubcategorias = new();
+
+            _categoriaRepositoryMock.Setup(x => x.GetById(It.IsAny<int>())).Returns<Categoria>(null);
+            _produtoRepositoryMock.Setup(x => x.GetAll()).Returns(listaProdutos);
+            _subcategoriaRepositoryMock.Setup(x => x.GetAll()).Returns(listaSubcategorias);
+            _categoriaRepositoryMock.Setup(x => x.EditarCategoria(It.IsAny<Categoria>())).Returns(categoria);
+
+            UpdateStatusCategoriaCommand request = UpdateStatusCategoriaCommandFactory.UpdateStatusCategoriaCommand();
+            CancellationToken cancellationToken = default;
+
+            var categoriaHandler = CreateCategoriaHandler();
+
+            // Act
+            var result = await categoriaHandler.Handle(request, cancellationToken);
+
+            //Assert
+            Assert.False(result.Success);
+            Assert.Equal("Categoria não localizada", result.Message);
+        }
+
+        [Fact(DisplayName = "Não deve ser possível inativar uma categoria com produtos inclusos")]
+        public async void Não_Deve_Inativar_Categoria_Com_Produtos()
+        {
+            // Arrange
+            Categoria categoria = CategoriaFactory.Create();
+            List<Produto> listaProdutos = ProdutoFactory.Create(2);
+            List<Subcategoria> listaSubcategorias = new();
+
+            _categoriaRepositoryMock.Setup(x => x.GetById(It.IsAny<int>())).Returns(categoria);
+            _produtoRepositoryMock.Setup(x => x.GetAll()).Returns(listaProdutos);
+            _subcategoriaRepositoryMock.Setup(x => x.GetAll()).Returns(listaSubcategorias);
+            _categoriaRepositoryMock.Setup(x => x.EditarCategoria(It.IsAny<Categoria>())).Returns(categoria);
+
+            UpdateStatusCategoriaCommand request = UpdateStatusCategoriaCommandFactory.UpdateStatusCategoriaCommand();
+            CancellationToken cancellationToken = default;
+
+            var categoriaHandler = CreateCategoriaHandler();
+
+            // Act
+            var result = await categoriaHandler.Handle(request, cancellationToken);
+
+            //Assert
+            Assert.False(result.Success);
+            Assert.Equal("Há produtos cadastrados, não é possível inativar a categoria", result.Message);
+
         }
 
     }

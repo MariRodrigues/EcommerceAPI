@@ -41,7 +41,6 @@ namespace EcommerceAPI.Application.Handlers.Categorias
             {
                 Id = categoria.Id
             };
-
         }
 
         public async Task<ResponseApi> Handle(UpdateCategoriaCommand request, CancellationToken cancellationToken)
