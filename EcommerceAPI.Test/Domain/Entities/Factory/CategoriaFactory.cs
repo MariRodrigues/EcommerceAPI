@@ -1,7 +1,5 @@
 ﻿using Bogus;
-using EcommerceAPI.Application.Commands.Categorias;
 using EcommerceAPI.Domain.Categorias;
-
 
 namespace EcommerceAPI.Test.Domain.Entities.Factory
 {
@@ -21,6 +19,17 @@ namespace EcommerceAPI.Test.Domain.Entities.Factory
             var categoria = new Faker<Categoria>("pt_BR")
                 .RuleFor(x => x.Nome, (f, u) => nome)
                 .RuleFor(x => x.Id, (f, u) => f.IndexFaker);
+
+            return categoria;
+        }
+
+        public static Categoria Create(string nome, int id)
+        {
+            var categoria = new Categoria
+            {
+                Id = id,
+                Nome = nome
+            };
 
             return categoria;
         }

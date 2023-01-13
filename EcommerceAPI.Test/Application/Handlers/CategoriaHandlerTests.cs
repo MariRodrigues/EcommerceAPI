@@ -3,9 +3,10 @@ using EcommerceAPI.Application.Commands.Categorias;
 using EcommerceAPI.Application.Handlers.Categorias;
 using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Domain.Repository;
-using EcommerceAPI.Test.Application.Handlers.CategoriaFactory;
+using EcommerceAPI.Test.Application.Handlers.CategoriaCommandFactory;
+using EcommerceAPI.Test.Domain.Entities.Factory;
 using Moq;
-using System;
+
 using System.Threading;
 using Xunit;
 
@@ -39,22 +40,30 @@ namespace EcommerceAPI.Test.Application.Handlers
         public async void Deve_Criar_Categoria_Valido()
         {
             // Arrange
-            _categoriaRepositoryMock.Setup(x => x.CadastrarCategoria(It.IsAny<Categoria>())).Returns<Categoria>(x => x);
+            var command = CreateCategoriaCommandFactory.CreateCategoriaCommand();
+            var categoria = CategoriaFactory.Create();
+
+            _mapperMock.Setup(x => x.Map<Categoria>(It.IsAny<CreateCategoriaCommand>()))
+                .Returns(categoria);
+            _categoriaRepositoryMock.Setup(x => x.CadastrarCategoria(It.IsAny<Categoria>()))
+                .Returns(categoria);
+
             var categoriaHandler = CreateCategoriaHandler();
-            CancellationToken cancellationToken = default;
+            CancellationToken cancellationToken = default;         
 
             // Act
-            var result = await categoriaHandler.Handle(CreateCategoriaCommandFactory.CreateCategoriaCommand("Amália - 01"), cancellationToken);
+            var result = await categoriaHandler.Handle(command, cancellationToken);
 
             // Assert
             Assert.True(result.Success);
         }
 
-        [Fact(DisplayName = "Não deve ser possível cadastrar uma categoria com nome inválido")]
+        [Fact(DisplayName = "Não deve ser possível cadastrar uma categoria com retorno nulo")]
         public async void Não_Deve_Criar_Categoria_Invalida()
         {
             // Arrange
-            _categoriaRepositoryMock.Setup(x => x.CadastrarCategoria(It.IsAny<Categoria>())).Returns<Categoria>(x => x);
+            _categoriaRepositoryMock.Setup(x => x.CadastrarCategoria(It.IsAny<Categoria>())).Returns<Categoria>(null);
+
             var categoriaHandler = CreateCategoriaHandler();
             CancellationToken cancellationToken = default;
 
@@ -62,31 +71,26 @@ namespace EcommerceAPI.Test.Application.Handlers
             var result = await categoriaHandler.Handle(CreateCategoriaCommandFactory.CreateCategoriaCommand(), cancellationToken);
 
             // Assert
-            Assert.True(result.Success);
+            Assert.False(result.Success);
         }
 
         [Fact(DisplayName = "Deve ser possível atualizar uma categoria existente")]
         public async void Testa_Atualiza_Categoria()
         {
             // Arrange
-            Categoria categoria = new Categoria()
-            {
-                Nome = "Teste_Updated",
-                Id = 2,
-            };
+            Categoria categoria = CategoriaFactory.Create();
 
             _categoriaRepositoryMock.Setup(x => x.GetById(It.IsAny<int>())).Returns(categoria);
             _mapperMock.Setup(x => x.Map(It.IsAny<UpdateCategoriaCommand>(), It.IsAny<Categoria>()))
                 .Returns(categoria);
             _categoriaRepositoryMock.Setup(x => x.EditarCategoria(It.IsAny<Categoria>())).Returns(categoria);
 
-
             CancellationToken cancellationToken = default;
 
             var categoriaHandler = CreateCategoriaHandler();
 
             // Act
-            var result = await categoriaHandler.Handle(CreateCategoriaCommandFactory.CreateCategoriaCommand(), cancellationToken);
+            var result = await categoriaHandler.Handle(UpdateCategoriaCommandFactory.UpdateCategoriaCommand(), cancellationToken);
 
             //Assert
             Assert.True(result.Success);

@@ -31,15 +31,17 @@ namespace EcommerceAPI.Application.Handlers.Categorias
 
         public async Task<ResponseApi> Handle(CreateCategoriaCommand request, CancellationToken cancellationToken)
         {
-            Categoria categoria = new() { Nome = request.Nome };
-            _categoriaRepository.CadastrarCategoria(categoria);
+            Categoria categoria = _mapper.Map<Categoria>(request);
+            var response = _categoriaRepository.CadastrarCategoria(categoria);
 
-            var response = new ResponseApi(true, "Categoria cadastrada com sucesso")
+            if (response == null)
+                return new ResponseApi(false, "Não foi possível cadastrar a categoria.");               
+            
+            return new ResponseApi(true, "Categoria cadastrada com sucesso")
             {
                 Id = categoria.Id
             };
 
-            return response;
         }
 
         public async Task<ResponseApi> Handle(UpdateCategoriaCommand request, CancellationToken cancellationToken)
