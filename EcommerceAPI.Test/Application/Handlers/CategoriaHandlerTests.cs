@@ -43,7 +43,7 @@ namespace EcommerceAPI.Test.Application.Handlers
         public async void Deve_Criar_Categoria_Valido()
         {
             // Arrange
-            var command = CreateCategoriaCommandFactory.CreateCategoriaCommand();
+            var command = CreateCategoriaCommandFactory.Create();
             var categoria = CategoriaFactory.Create();
 
             _mapperMock.Setup(x => x.Map<Categoria>(It.IsAny<CreateCategoriaCommand>()))
@@ -71,7 +71,7 @@ namespace EcommerceAPI.Test.Application.Handlers
             CancellationToken cancellationToken = default;
 
             // Act
-            var result = await categoriaHandler.Handle(CreateCategoriaCommandFactory.CreateCategoriaCommand(), cancellationToken);
+            var result = await categoriaHandler.Handle(CreateCategoriaCommandFactory.Create(), cancellationToken);
 
             // Assert
             Assert.False(result.Success);

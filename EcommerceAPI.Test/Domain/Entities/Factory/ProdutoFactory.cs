@@ -1,9 +1,7 @@
 ﻿using Bogus;
-using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Domain.Produtos;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace EcommerceAPI.Test.Domain.Entities.Factory
 {
