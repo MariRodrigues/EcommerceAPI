@@ -16,6 +16,25 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ## Abrir e rodar o projeto
 Após clonar o repositório, abra-o com o Visual Studio, clicando duas vezes no arquivo .sln do projeto.
 
+É necessário acrescentar no arquivo ```appsettings.json``` as informações do banco de dados para realizar a conexão.
+O arquivo ficará da seguinte forma:
+
+```
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "CategoriaConnection": "server=seu-servidor-ou-localhost;database=ecommerceDB;user=seu-usuario;password=sua-senha"
+  }
+}
+```
+
 Para rodar pela primeira vez, com o visual aberto, vá em ```Ferramentas``` > ```Gerenciador de pacotes do NuGet``` > ```Console do Gerenciador de Pacotes```
 
 Com o console aberto, em "Projeto Padrão" selecione o ```EcommerceAPI.Infra``` e escreva o seguinte comando:
