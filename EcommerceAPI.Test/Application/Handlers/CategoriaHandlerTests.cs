@@ -9,7 +9,6 @@ using EcommerceAPI.Test.Application.Handlers.CategoriaCommandFactory;
 using EcommerceAPI.Test.Domain.Entities.Factory;
 using Moq;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Xunit;
 

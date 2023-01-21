@@ -50,11 +50,10 @@ namespace EcommerceAPI
             app.UseCors(t => t.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EcommerceAPI v1"));
-            }
+
+            //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EcommerceAPI v1"));
+            app.UseSwagger();
 
             app.UseHttpsRedirection();
             app.UseRouting();
