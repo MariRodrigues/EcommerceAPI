@@ -39,7 +39,7 @@ namespace EcommerceAPI.Test.Application.Handlers
         }
 
         [Fact(DisplayName = "Deve ser possível cadastrar uma categoria")]
-        public async void Deve_Criar_Categoria_Valido()
+        public async void Deve_Criar_Categoria_Valida()
         {
             // Arrange
             var command = CreateCategoriaCommandFactory.Create();
