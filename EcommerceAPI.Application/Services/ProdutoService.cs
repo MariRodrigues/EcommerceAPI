@@ -2,6 +2,7 @@
 using EcommerceAPI.Domain.Produtos;
 using EcommerceAPI.Domain.Produtos.DTO;
 using EcommerceAPI.Domain.Repository;
+using EcommerceAPI.Infra.Queries;
 using System.Collections.Generic;
 
 namespace EcommerceAPI.Application.Services
@@ -12,13 +13,15 @@ namespace EcommerceAPI.Application.Services
         private readonly IProdutoRepository _produtoRepository;
         private readonly ICategoriaRepository _categoriaRepository;
         private readonly ISubcategoriaRepository _subcategoriaRepository;
+        private readonly ProdutoQueries _produtoQueries;
 
-        public ProdutoService(IMapper mapper, IProdutoRepository repository, ICategoriaRepository categoriaRepository, ISubcategoriaRepository subcategoriaRepository)
+        public ProdutoService(IMapper mapper, IProdutoRepository repository, ICategoriaRepository categoriaRepository, ISubcategoriaRepository subcategoriaRepository, ProdutoQueries produtoQueries)
         {
             _mapper = mapper;
             _produtoRepository = repository;
             _categoriaRepository = categoriaRepository;
             _subcategoriaRepository = subcategoriaRepository;
+            _produtoQueries = produtoQueries;
         }
 
         public Produto CadastrarProduto(CreateProdutoDto produtoDto)
@@ -42,14 +45,14 @@ namespace EcommerceAPI.Application.Services
 
         public ReadProdutoDto RecuperarProdutoPorId(int id)
         {
-            var result = _produtoRepository.GetById(id);
+            var result = _produtoQueries.GetById(id);
             ReadProdutoDto produtoDto = _mapper.Map<ReadProdutoDto>(result);
             return produtoDto;
         }
 
         public IEnumerable<ReadProdutoDto> PesquisarProdutos(FiltrosProduto filtros)
         {
-            var result = _produtoRepository.GetAllFilter(filtros);
+            var result = _produtoQueries.GetAllFilter(filtros);
 
             List<ReadProdutoDto> produtoDto = _mapper.Map<List<ReadProdutoDto>>(result);
 
@@ -58,7 +61,7 @@ namespace EcommerceAPI.Application.Services
 
         public ReadProdutoDto EditarProduto (int id, UpdateProdutoDto produtoDto)
         {
-            var produto = _produtoRepository.GetById(id);
+            var produto = _produtoQueries.GetById(id);
             var subcategoria = _subcategoriaRepository.GetById(produtoDto.SubcategoriaId);
             var categoria = _categoriaRepository.GetById(subcategoria.CategoriaId);
 

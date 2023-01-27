@@ -28,6 +28,15 @@ namespace EcommerceAPI.Infra.Queries
             return result;
         }
 
+        public Produto GetById(int id)
+        {
+            var sql = "Select * from produtos where Id = @Id";
+
+            var result = _connection.QuerySingleOrDefault<Produto>(sql, new { id });
+
+            return result;
+        }
+
         public IEnumerable<Produto> GetAllFilter(FiltrosProduto filtros)
         {
             var queryArgs = new DynamicParameters();
@@ -128,12 +137,6 @@ namespace EcommerceAPI.Infra.Queries
                     sql += "order by p.nome";
                 }
             }
-
-            //var offset = (filtros.Pagina - 1) * filtros.ItensPagina;
-
-            //sql += " LIMIT @ItensPagina OFFSET @offset";
-
-            //queryArgs.Add("offset", offset);
 
             var result = _connection.Query<Produto, Categoria, CentroDistribuicao, Produto>
                 (sql, (produto, categoria, centro) => {

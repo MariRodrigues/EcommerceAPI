@@ -3,6 +3,7 @@ using EcommerceAPI.Application.Commands.Produtos;
 using EcommerceAPI.Application.Response;
 using EcommerceAPI.Domain.Produtos;
 using EcommerceAPI.Domain.Repository;
+using EcommerceAPI.Infra.Queries;
 using EcommerceAPI.Infra.Repository;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,13 +16,15 @@ namespace EcommerceAPI.Application.Handlers.Produtos
         private readonly ICategoriaRepository _categoriaRepository;
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMapper _mapper;
+        private readonly ProdutoQueries _produtoQueries;
 
-        public ProdutoHandler(ISubcategoriaRepository subcategoriaRepository, ICategoriaRepository categoriaRepository, IMapper mapper, IProdutoRepository produtoRepository)
+        public ProdutoHandler(ISubcategoriaRepository subcategoriaRepository, ICategoriaRepository categoriaRepository, IMapper mapper, IProdutoRepository produtoRepository, ProdutoQueries produtoQueries)
         {
             _subcategoriaRepository = subcategoriaRepository;
             _categoriaRepository = categoriaRepository;
             _mapper = mapper;
             _produtoRepository = produtoRepository;
+            _produtoQueries = produtoQueries;
         }
 
         public async Task<ResponseApi> Handle(CreateProdutoCommand request, CancellationToken cancellationToken)
@@ -49,7 +52,7 @@ namespace EcommerceAPI.Application.Handlers.Produtos
         }
         public async Task<ResponseApi> Handle(UpdateProdutoCommand request, CancellationToken cancellationToken)
         {
-            var produto = _produtoRepository.GetById(request.Id);
+            var produto = _produtoQueries.GetById(request.Id);
             var subcategoria = _subcategoriaRepository.GetById(request.SubcategoriaId);
             var categoria = _categoriaRepository.GetById(subcategoria.CategoriaId);
 

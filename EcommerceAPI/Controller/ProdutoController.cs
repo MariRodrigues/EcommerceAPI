@@ -58,7 +58,6 @@ namespace EcommerceAPI.Controller
         [ProducesResponseType(200)]
         public async Task<IActionResult> GetAllProducts([FromQuery] FiltrosProduto filtros)
         {
-            //var result = _produtosQueries.GetAllFilter(filtros);
             var result = _produtoService.PesquisarProdutos(filtros);
             return Ok(result);
         }
