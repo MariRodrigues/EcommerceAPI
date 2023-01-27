@@ -1,23 +1,11 @@
-using EcommerceAPI.Application.Handlers.Categorias;
-using EcommerceAPI.Application.Services;
 using EcommerceAPI.Configurations;
-using EcommerceAPI.Infra.Data;
-using EcommerceAPI.Infra.Repository;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using System;
-using System.Reflection;
 
 namespace EcommerceAPI
 {
@@ -52,7 +40,6 @@ namespace EcommerceAPI
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EcommerceAPI v1"));
             app.UseSwagger();
 
             app.UseHttpsRedirection();

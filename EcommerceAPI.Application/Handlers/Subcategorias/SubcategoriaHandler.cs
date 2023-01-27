@@ -70,7 +70,7 @@ namespace EcommerceAPI.Application.Handlers.Subcategorias
             if (subcategoria == null)
                 return new ResponseApi(false, "Subcategoria não localizada");
 
-            if (subcategoria.Status == true)
+            if (subcategoria.Status)
                 subcategoria.Status = false;
             else
                 subcategoria.Status = true;

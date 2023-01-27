@@ -10,31 +10,30 @@ namespace EcommerceAPI.Infra.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
         {
-
         }
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.Entity<Subcategoria>()
+            modelBuilder.Entity<Subcategoria>()
                 .HasOne(subcategoria => subcategoria.Categoria)
                 .WithMany(categoria => categoria.Subcategorias)
                 .HasForeignKey(subcategoria =>subcategoria.CategoriaId);
 
-            builder.Entity<Produto>()
+            modelBuilder.Entity<Produto>()
                 .HasOne(produto => produto.Categoria)
                 .WithMany(categoria => categoria.Produtos)
                 .HasForeignKey(produto => produto.CategoriaId);
 
-            builder.Entity<Produto>()
+            modelBuilder.Entity<Produto>()
                 .HasOne(produto => produto.Subcategoria)
                 .WithMany(subcategoria => subcategoria.Produtos)
                 .HasForeignKey(produto => produto.SubcategoriaId);
 
-            builder.Entity<Produto>()
+            modelBuilder.Entity<Produto>()
                 .HasOne(produto => produto.CentroDistribuicao)
                 .WithMany(centros => centros.Produtos)
                 .HasForeignKey(produto => produto.CentroDistribuicaoId);
 
-            builder.Entity<CentroDistribuicao>()
+            modelBuilder.Entity<CentroDistribuicao>()
                 .HasIndex(c => c.Nome)
                 .IsUnique();
         }
@@ -43,6 +42,5 @@ namespace EcommerceAPI.Infra.Data
         public DbSet<Subcategoria> Subcategorias { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<CentroDistribuicao> CentrosDistribuicao { get; set; }
- 
     }
 }

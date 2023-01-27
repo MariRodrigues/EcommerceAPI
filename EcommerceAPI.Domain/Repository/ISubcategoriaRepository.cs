@@ -13,7 +13,5 @@ namespace EcommerceAPI.Domain.Repository
         Subcategoria GetById(int id);
         IEnumerable<Subcategoria> GetAll();
         Subcategoria EditarSubcategoria(Subcategoria subcategoria);
-        Subcategoria EditarStatus(Subcategoria subcategoria);
-        void RemoverSubcategoria(Subcategoria subcategoria);
     }
 }

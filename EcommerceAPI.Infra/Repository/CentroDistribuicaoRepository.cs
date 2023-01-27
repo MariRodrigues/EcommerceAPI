@@ -29,7 +29,7 @@ namespace EcommerceAPI.Infra.Repository
 
         public void EditarStatusCentro (CentroDistribuicao centro)
         {
-            if (centro.Status == true)
+            if (centro.Status)
             {
                 centro.Status = false;
                 centro.DataModificacao = DateTime.Now;

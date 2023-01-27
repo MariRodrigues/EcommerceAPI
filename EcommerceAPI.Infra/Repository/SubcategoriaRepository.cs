@@ -40,19 +40,5 @@ namespace EcommerceAPI.Infra.Repository
             _context.SaveChanges();
             return subcategoria;
         }
-
-        public Subcategoria EditarStatus(Subcategoria subcategoria)
-        {
-            subcategoria.DataModificacao = DateTime.Now;
-            _context.Update(subcategoria);
-            _context.SaveChanges();
-            return subcategoria;
-        }
-
-        public void RemoverSubcategoria(Subcategoria subcategoria)
-        {
-            _context.Subcategorias.Remove(subcategoria);
-            _context.SaveChanges();
-        }
     }
 }

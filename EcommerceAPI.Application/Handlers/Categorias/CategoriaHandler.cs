@@ -70,7 +70,7 @@ namespace EcommerceAPI.Application.Handlers.Categorias
 
             var produtos = _produtoRepository.GetAll().Where(p => p.CategoriaId == categoria.Id).ToList();
 
-            if (categoria.Status == true)
+            if (categoria.Status)
             {
                 if (produtos.Count != 0)
                     return new ResponseApi(false, "Há produtos cadastrados, não é possível inativar a categoria");

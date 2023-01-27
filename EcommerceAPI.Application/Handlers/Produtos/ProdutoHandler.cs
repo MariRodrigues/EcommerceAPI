@@ -31,8 +31,8 @@ namespace EcommerceAPI.Application.Handlers.Produtos
             var subcategoria = _subcategoriaRepository.GetById(request.SubcategoriaId);
             var categoria = _categoriaRepository.GetById(subcategoria.CategoriaId);
 
-            if (subcategoria.Status == false
-                || categoria.Status == false)
+            if (!subcategoria.Status
+                || !categoria.Status)
             {
                 return null;
             }
