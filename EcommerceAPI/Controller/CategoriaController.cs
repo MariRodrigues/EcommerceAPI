@@ -57,7 +57,6 @@ namespace EcommerceAPI.Controller
         [SwaggerOperation(Summary = "Atualiza categoria",
                           OperationId = "Post")]
         [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
         public IActionResult AtualizaCategoria([FromServices] IMediator mediator, [FromBody] UpdateCategoriaCommand request)
         {
             var response = mediator.Send(request);
@@ -68,7 +67,6 @@ namespace EcommerceAPI.Controller
         [SwaggerOperation(Summary = "Editar o status da categoria por Id",
                           OperationId = "Put")]
         [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
         public IActionResult EditarStatusCategoria([FromServices] IMediator mediator, UpdateStatusCategoriaCommand request)
         {
             var response = mediator.Send(request);
