@@ -73,7 +73,7 @@ namespace EcommerceAPI.Application.Handlers.Categorias
             if (categoria.Status == true)
             {
                 if (produtos.Count != 0)
-                    return new ResponseApi(false, "Há produtos cadastrados, não é possível inativar a categoria"); ;
+                    return new ResponseApi(false, "Há produtos cadastrados, não é possível inativar a categoria");
 
                 categoria.Status = false;
                 categoria.DataModificacao = DateTime.Now;

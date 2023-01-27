@@ -9,8 +9,6 @@ namespace EcommerceAPI.Application.Profiles
     {
         public ProdutoProfile()
         {
-            CreateMap<CreateProdutoDto, Produto>();
-            CreateMap<UpdateProdutoDto, Produto>();
             CreateMap<Produto, ReadProdutoDto>();
             CreateMap<CreateProdutoCommand, Produto>();
             CreateMap<UpdateProdutoCommand, Produto>();

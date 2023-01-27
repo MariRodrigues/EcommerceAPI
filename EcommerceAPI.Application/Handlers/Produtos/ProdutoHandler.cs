@@ -4,7 +4,6 @@ using EcommerceAPI.Application.Response;
 using EcommerceAPI.Domain.Produtos;
 using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Infra.Queries;
-using EcommerceAPI.Infra.Repository;
 using System.Threading;
 using System.Threading.Tasks;
 
