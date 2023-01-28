@@ -3,6 +3,7 @@ using EcommerceAPI.Application.Commands.Centros;
 using EcommerceAPI.Application.Response;
 using EcommerceAPI.Domain.Centros;
 using EcommerceAPI.Domain.Centros.DTO;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Infra.Queries;
 using EcommerceAPI.Infra.Repository;
@@ -15,14 +16,14 @@ namespace EcommerceAPI.Application.Handlers.CentrosDistribuicao
 {
     public class CentroDistribuicaoHandler : ICentroDistribuicaoHandler
     {
-        private readonly CentroQueries _centroQueries;
+        private readonly ICentroQueries _centroQueries;
         private readonly IMapper _mapper;
         private readonly ICentroDistribuicaoRepository _centroRepository;
         private readonly IProdutoRepository _produtoRepository;
 
         static readonly HttpClient client = new();
 
-        public CentroDistribuicaoHandler(CentroQueries centroQueries, IMapper mapper, ICentroDistribuicaoRepository centroRepository, IProdutoRepository produtoRepository)
+        public CentroDistribuicaoHandler(ICentroQueries centroQueries, IMapper mapper, ICentroDistribuicaoRepository centroRepository, IProdutoRepository produtoRepository)
         {
             _centroQueries = centroQueries;
             _mapper = mapper;

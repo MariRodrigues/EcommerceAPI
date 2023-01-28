@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Domain.Categorias.DTO;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceAPI.Infra.Queries
 {
-    public class CategoriaQueries
+    public class CategoriaQueries : ICategoriaQueries
     {
         private readonly MySqlConnection _connection;
 

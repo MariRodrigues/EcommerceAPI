@@ -1,4 +1,5 @@
 ﻿using EcommerceAPI.Domain.Categorias.DTO;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Infra.Queries;
 
 using System.Linq;
@@ -7,9 +8,9 @@ namespace EcommerceAPI.Application.Services
 {
     public class CategoriaService
     {
-        private readonly CategoriaQueries _categoriaQueries;
+        private readonly ICategoriaQueries _categoriaQueries;
 
-        public CategoriaService(CategoriaQueries categoriaQueries)
+        public CategoriaService(ICategoriaQueries categoriaQueries)
         {
             _categoriaQueries = categoriaQueries;
         }

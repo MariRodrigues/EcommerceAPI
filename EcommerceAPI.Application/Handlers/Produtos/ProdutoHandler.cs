@@ -2,8 +2,8 @@
 using EcommerceAPI.Application.Commands.Produtos;
 using EcommerceAPI.Application.Response;
 using EcommerceAPI.Domain.Produtos;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Domain.Repository;
-using EcommerceAPI.Infra.Queries;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,9 +15,9 @@ namespace EcommerceAPI.Application.Handlers.Produtos
         private readonly ICategoriaRepository _categoriaRepository;
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMapper _mapper;
-        private readonly ProdutoQueries _produtoQueries;
+        private readonly IProdutoQueries _produtoQueries;
 
-        public ProdutoHandler(ISubcategoriaRepository subcategoriaRepository, ICategoriaRepository categoriaRepository, IMapper mapper, IProdutoRepository produtoRepository, ProdutoQueries produtoQueries)
+        public ProdutoHandler(ISubcategoriaRepository subcategoriaRepository, ICategoriaRepository categoriaRepository, IMapper mapper, IProdutoRepository produtoRepository, IProdutoQueries produtoQueries)
         {
             _subcategoriaRepository = subcategoriaRepository;
             _categoriaRepository = categoriaRepository;

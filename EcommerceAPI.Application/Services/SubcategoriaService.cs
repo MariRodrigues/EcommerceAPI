@@ -18,7 +18,9 @@ namespace EcommerceAPI.Application.Services
         private readonly ISubcategoriaRepository _subcategoriaRepository;
         private readonly ICategoriaRepository _categoriaRepository;
 
-        public SubcategoriaService(IMapper mapper, ISubcategoriaRepository subcategoriaRepository, 
+        public SubcategoriaService(
+            IMapper mapper, 
+            ISubcategoriaRepository subcategoriaRepository, 
             ICategoriaRepository categoriaRepository)
         {
             _mapper = mapper;

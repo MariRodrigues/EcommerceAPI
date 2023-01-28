@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using EcommerceAPI.Domain.Centros;
 using EcommerceAPI.Domain.Centros.DTO;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 
 namespace EcommerceAPI.Infra.Queries
 {
-    public class CentroQueries
+    public class CentroQueries : ICentroQueries
     {
         private readonly MySqlConnection _connection;
 

@@ -11,6 +11,7 @@ namespace EcommerceAPI.Application.Commands.Subcategorias
             "Números e caracteres especiais não são permitidos no nome.")]
         [StringLength(128, ErrorMessage = "Nome excede os 128 caracteres máximos.")]
         public string Nome { get; set; }
+        [Required]
         public int CategoriaId { get; set; }
     }
 }

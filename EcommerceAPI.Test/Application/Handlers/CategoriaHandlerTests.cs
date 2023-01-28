@@ -20,6 +20,7 @@ namespace EcommerceAPI.Test.Application.Handlers
         private readonly Mock<IProdutoRepository> _produtoRepositoryMock;
         private readonly Mock<ISubcategoriaRepository> _subcategoriaRepositoryMock;
         private readonly Mock<IMapper> _mapperMock;
+        private CategoriaHandler _categoriaHandler;
 
         public CategoriaHandlerTests()
         {
@@ -27,6 +28,7 @@ namespace EcommerceAPI.Test.Application.Handlers
             _produtoRepositoryMock = new Mock<IProdutoRepository>();
             _subcategoriaRepositoryMock = new Mock<ISubcategoriaRepository>();
             _mapperMock = new Mock<IMapper>();
+            _categoriaHandler = CreateCategoriaHandler();
         }
 
         private CategoriaHandler CreateCategoriaHandler()
@@ -50,11 +52,11 @@ namespace EcommerceAPI.Test.Application.Handlers
             _categoriaRepositoryMock.Setup(x => x.CadastrarCategoria(It.IsAny<Categoria>()))
                 .Returns(categoria);
 
-            var categoriaHandler = CreateCategoriaHandler();
+            
             CancellationToken cancellationToken = default;         
 
             // Act
-            var result = await categoriaHandler.Handle(command, cancellationToken);
+            var result = await _categoriaHandler.Handle(command, cancellationToken);
 
             // Assert
             Assert.True(result.Success);
@@ -66,11 +68,10 @@ namespace EcommerceAPI.Test.Application.Handlers
             // Arrange
             _categoriaRepositoryMock.Setup(x => x.CadastrarCategoria(It.IsAny<Categoria>())).Returns<Categoria>(null);
 
-            var categoriaHandler = CreateCategoriaHandler();
             CancellationToken cancellationToken = default;
 
             // Act
-            var result = await categoriaHandler.Handle(CreateCategoriaCommandFactory.Create(), cancellationToken);
+            var result = await _categoriaHandler.Handle(CreateCategoriaCommandFactory.Create(), cancellationToken);
 
             // Assert
             Assert.False(result.Success);
@@ -89,10 +90,8 @@ namespace EcommerceAPI.Test.Application.Handlers
 
             CancellationToken cancellationToken = default;
 
-            var categoriaHandler = CreateCategoriaHandler();
-
             // Act
-            var result = await categoriaHandler.Handle(UpdateCategoriaCommandFactory.UpdateCategoriaCommand(), cancellationToken);
+            var result = await _categoriaHandler.Handle(UpdateCategoriaCommandFactory.UpdateCategoriaCommand(), cancellationToken);
 
             //Assert
             Assert.True(result.Success);
@@ -112,10 +111,8 @@ namespace EcommerceAPI.Test.Application.Handlers
             UpdateCategoriaCommand request = UpdateCategoriaCommandFactory.UpdateCategoriaCommand();
             CancellationToken cancellationToken = default;
 
-            var categoriaHandler = CreateCategoriaHandler();
-
             // Act
-            var result = await categoriaHandler.Handle(request, cancellationToken);
+            var result = await _categoriaHandler.Handle(request, cancellationToken);
 
             //Assert
             Assert.False(result.Success);
@@ -138,10 +135,8 @@ namespace EcommerceAPI.Test.Application.Handlers
             UpdateStatusCategoriaCommand request = UpdateStatusCategoriaCommandFactory.UpdateStatusCategoriaCommand();
             CancellationToken cancellationToken = default;
 
-            var categoriaHandler = CreateCategoriaHandler();
-
             // Act
-            var result = await categoriaHandler.Handle(request, cancellationToken);
+            var result = await _categoriaHandler.Handle(request, cancellationToken);
 
             //Assert
             Assert.True(result.Success);
@@ -163,10 +158,8 @@ namespace EcommerceAPI.Test.Application.Handlers
             UpdateStatusCategoriaCommand request = UpdateStatusCategoriaCommandFactory.UpdateStatusCategoriaCommand();
             CancellationToken cancellationToken = default;
 
-            var categoriaHandler = CreateCategoriaHandler();
-
             // Act
-            var result = await categoriaHandler.Handle(request, cancellationToken);
+            var result = await _categoriaHandler.Handle(request, cancellationToken);
 
             //Assert
             Assert.False(result.Success);
@@ -189,10 +182,8 @@ namespace EcommerceAPI.Test.Application.Handlers
             UpdateStatusCategoriaCommand request = UpdateStatusCategoriaCommandFactory.UpdateStatusCategoriaCommand();
             CancellationToken cancellationToken = default;
 
-            var categoriaHandler = CreateCategoriaHandler();
-
             // Act
-            var result = await categoriaHandler.Handle(request, cancellationToken);
+            var result = await _categoriaHandler.Handle(request, cancellationToken);
 
             //Assert
             Assert.False(result.Success);

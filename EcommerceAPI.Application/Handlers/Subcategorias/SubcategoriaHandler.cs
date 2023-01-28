@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
 using EcommerceAPI.Application.Commands.Subcategorias;
 using EcommerceAPI.Application.Response;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Domain.Subcategorias;
-using EcommerceAPI.Domain.Subcategorias.DTO;
-using EcommerceAPI.Infra.Queries;
-using EcommerceAPI.Infra.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,10 +12,10 @@ namespace EcommerceAPI.Application.Handlers.Subcategorias
     public class SubcategoriaHandler : ISubcategoriaHandler
     {
         private readonly ISubcategoriaRepository _subcategoriaRepository;
-        private readonly SubcategoriaQueries _subcategoriaQueries;
+        private readonly ISubcategoriaQueries _subcategoriaQueries;
         private readonly IMapper _mapper;
 
-        public SubcategoriaHandler(ISubcategoriaRepository subcategoriaRepository, SubcategoriaQueries subcategoriaQueries, IMapper mapper)
+        public SubcategoriaHandler(ISubcategoriaRepository subcategoriaRepository, ISubcategoriaQueries subcategoriaQueries, IMapper mapper)
         {
             _subcategoriaRepository = subcategoriaRepository;
             _subcategoriaQueries = subcategoriaQueries;
@@ -30,19 +24,16 @@ namespace EcommerceAPI.Application.Handlers.Subcategorias
 
         public async Task<ResponseApi> Handle(CreateSubcategoriaCommand request, CancellationToken cancellationToken)
         {
-            Subcategoria subcategoria = new()
-            {
-                Nome = request.Nome,
-                CategoriaId = request.CategoriaId
-            };
-             _subcategoriaRepository.CriarSubcategoria(subcategoria);
+            Subcategoria subcategoria = _mapper.Map<Subcategoria>(request);
+            var response = _subcategoriaRepository.CriarSubcategoria(subcategoria);
 
-            var response = new ResponseApi(true, "Subcategoria cadastrada com sucesso")
+            if (response == null)
+                return new ResponseApi(false, "Não foi possível cadastrar a subcategoria.");
+
+            return new ResponseApi(true, "Subcategoria cadastrada com sucesso.")
             {
                 Id = subcategoria.Id
             };
-
-            return response;
         }
 
         public async Task<ResponseApi> Handle(UpdateSubcategoriaCommand request, CancellationToken cancellationToken)
@@ -55,12 +46,10 @@ namespace EcommerceAPI.Application.Handlers.Subcategorias
             _mapper.Map(request, subcategoria);
             _subcategoriaRepository.EditarSubcategoria(subcategoria);
 
-            var response = new ResponseApi(true, "Subcategoria atualizada com sucesso!")
+            return new ResponseApi(true, "Subcategoria atualizada com sucesso!")
             {
                 Id = subcategoria.Id
             };
-
-            return response;
         }
 
         public async Task<ResponseApi> Handle(UpdateStatusSubcategoriaCommand request, CancellationToken cancellationToken)
@@ -77,12 +66,10 @@ namespace EcommerceAPI.Application.Handlers.Subcategorias
 
             _subcategoriaRepository.EditarSubcategoria(subcategoria);
 
-            var response = new ResponseApi(true, "Status da subcategoria atualizado com sucesso!")
+            return new ResponseApi(true, "Status da subcategoria atualizado com sucesso!")
             {
                 Id = subcategoria.Id
             };
-
-            return response;
         }
     }
 }

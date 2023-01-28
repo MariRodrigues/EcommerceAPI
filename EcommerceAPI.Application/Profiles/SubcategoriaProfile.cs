@@ -13,6 +13,7 @@ namespace EcommerceAPI.Application.Profiles
             CreateMap<UpdateSubcategoriaDto, Subcategoria>();
             CreateMap<UpdateSubcategoriaCommand, Subcategoria>();
             CreateMap<UpdateStatusSubcategoriaCommand, Subcategoria>();
+            CreateMap<CreateSubcategoriaCommand, Subcategoria>();
             CreateMap<Subcategoria, ReadSubcategoriaDto>();
         }
     }

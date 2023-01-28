@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EcommerceAPI.Domain.Centros;
 using EcommerceAPI.Domain.Centros.DTO;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Infra.Queries;
 using EcommerceAPI.Infra.Repository;
@@ -18,10 +19,14 @@ namespace EcommerceAPI.Application.Services
         private readonly IMapper _mapper;
         private readonly ICentroDistribuicaoRepository _centroRepository;
         private readonly IProdutoRepository _produtoRepository;
-        private readonly CentroQueries _centroQueries;
+        private readonly ICentroQueries _centroQueries;
 
         static readonly HttpClient client = new();
-        public CentroDistribuicaoService(IMapper mapper, ICentroDistribuicaoRepository centroRepository, IProdutoRepository produtoRepository, CentroQueries centroQueries)
+        public CentroDistribuicaoService(
+            IMapper mapper, 
+            ICentroDistribuicaoRepository centroRepository, 
+            IProdutoRepository produtoRepository, 
+            ICentroQueries centroQueries)
         {
             _mapper = mapper;
             _centroRepository = centroRepository;

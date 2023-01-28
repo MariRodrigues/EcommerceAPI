@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Handlers\SubcategoriaCommandFactory\" />
     <Folder Include="WebApi\" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using EcommerceAPI.Application.Services;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Infra.Data;
 using EcommerceAPI.Infra.Queries;
@@ -24,10 +25,10 @@ namespace EcommerceAPI.Configurations
             services.AddScoped<SubcategoriaService>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<ProdutoService>();
-            services.AddScoped<CentroQueries>();
-            services.AddScoped<CategoriaQueries>();
-            services.AddScoped<SubcategoriaQueries>();
-            services.AddScoped<ProdutoQueries>();
+            services.AddScoped<ICentroQueries, CentroQueries>();
+            services.AddScoped<ICategoriaQueries,CategoriaQueries>();
+            services.AddScoped<ISubcategoriaQueries, SubcategoriaQueries>();
+            services.AddScoped<IProdutoQueries, ProdutoQueries>();
 
             var assembly = AppDomain.CurrentDomain.Load("EcommerceAPI.Application");
             services.AddMediatR(assembly);

@@ -3,6 +3,7 @@ using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Domain.Centros;
 using EcommerceAPI.Domain.Produtos;
 using EcommerceAPI.Domain.Produtos.DTO;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
@@ -11,7 +12,7 @@ using System.Linq;
 
 namespace EcommerceAPI.Infra.Queries
 {
-    public class ProdutoQueries
+    public class ProdutoQueries : IProdutoQueries
     {
         private readonly MySqlConnection _connection;
 

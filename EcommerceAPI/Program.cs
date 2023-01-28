@@ -1,16 +1,13 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EcommerceAPI
 {
     public class Program
     {
+        protected Program() { }
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -22,7 +19,6 @@ namespace EcommerceAPI
                 {
                     webBuilder.UseStartup<Startup>();
                 }).ConfigureAppConfiguration((context, builder) => 
-                builder.AddUserSecrets<Program>())
-            ;
+                builder.AddUserSecrets<Program>());
     }
 }
