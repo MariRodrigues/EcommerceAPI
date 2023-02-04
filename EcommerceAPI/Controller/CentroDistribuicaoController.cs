@@ -1,6 +1,7 @@
 ﻿using EcommerceAPI.Application.Commands.Centros;
 using EcommerceAPI.Application.Services;
 using EcommerceAPI.Domain.Centros.DTO;
+using EcommerceAPI.Domain.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -14,11 +15,11 @@ namespace EcommerceAPI.Controller
     [Route("v{version:apiVersion}/[controller]")]
     public class CentroDistribuicaoController : ControllerBase
     {
-        private readonly CentroDistribuicaoService _centroService;
+        private readonly ICentroQueries _centroQueries;
 
-        public CentroDistribuicaoController(CentroDistribuicaoService centroService)
+        public CentroDistribuicaoController(ICentroQueries centroQueries)
         {
-            _centroService = centroService;
+            _centroQueries = centroQueries;
         }
 
         [HttpPost]
@@ -58,7 +59,7 @@ namespace EcommerceAPI.Controller
         public async Task<IActionResult> GetById(int id)
         {
             FiltrosCD filtrosCD = new() { Id = id };
-            var response = _centroService.PesquisarCentros(filtrosCD).FirstOrDefault();
+            var response = _centroQueries.GetAllFilter(filtrosCD).FirstOrDefault();
             return Ok(response);
         }
 
@@ -68,7 +69,7 @@ namespace EcommerceAPI.Controller
         [ProducesResponseType(200)]
         public async Task<IActionResult> GetAll([FromQuery] FiltrosCD filtros)
         {
-            var response = _centroService.PesquisarCentros(filtros);
+            var response = _centroQueries.GetAllFilter(filtros);
             return Ok(response);
         }
     }

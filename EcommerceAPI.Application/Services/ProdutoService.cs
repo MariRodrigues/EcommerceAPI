@@ -22,7 +22,6 @@ namespace EcommerceAPI.Application.Services
         public IEnumerable<ReadProdutoDto> PesquisarProdutos(FiltrosProduto filtros)
         {
             var result = _produtoQueries.GetAllFilter(filtros);
-
             List<ReadProdutoDto> produtoDto = _mapper.Map<List<ReadProdutoDto>>(result);
 
             return produtoDto;

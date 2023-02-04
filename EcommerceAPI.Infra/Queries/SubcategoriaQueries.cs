@@ -5,10 +5,8 @@ using EcommerceAPI.Domain.Subcategorias.DTO;
 using EcommerceAPI.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EcommerceAPI.Infra.Queries

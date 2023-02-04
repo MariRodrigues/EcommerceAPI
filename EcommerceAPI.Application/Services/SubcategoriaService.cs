@@ -3,12 +3,6 @@ using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Domain.Repository;
 using EcommerceAPI.Domain.Subcategorias;
 using EcommerceAPI.Domain.Subcategorias.DTO;
-using EcommerceAPI.Infra.Repository;
-using FluentResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace EcommerceAPI.Application.Services
 {

@@ -8,7 +8,6 @@ using EcommerceAPI.Test.Application.Handlers.SubcategoriaCommandFactory;
 using EcommerceAPI.Test.Domain.Entities.Factory;
 using Moq;
 using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace EcommerceAPI.Test.Application.Handlers
@@ -85,7 +84,7 @@ namespace EcommerceAPI.Test.Application.Handlers
             // Arrange
             Subcategoria subcategoria = SubcategoriaFactory.Create(2);
 
-            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).Returns(Task.FromResult(subcategoria));
+            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).ReturnsAsync(subcategoria);
             _mapperMock.Setup(x => x.Map(It.IsAny<UpdateSubcategoriaCommand>(), It.IsAny<Subcategoria>()))
                 .Returns(subcategoria);
             _subcategoriaRepositoryMock.Setup(x => x.EditarSubcategoria(It.IsAny<Subcategoria>())).Returns(subcategoria);
@@ -107,7 +106,7 @@ namespace EcommerceAPI.Test.Application.Handlers
             // Arrange
             Subcategoria subcategoria = null;
 
-            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).Returns(Task.FromResult(subcategoria));
+            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).ReturnsAsync(subcategoria);
             _mapperMock.Setup(x => x.Map(It.IsAny<UpdateSubcategoriaCommand>(), It.IsAny<Subcategoria>()))
                 .Returns(subcategoria);
             _subcategoriaRepositoryMock.Setup(x => x.EditarSubcategoria(It.IsAny<Subcategoria>())).Returns(subcategoria);
@@ -127,7 +126,7 @@ namespace EcommerceAPI.Test.Application.Handlers
         {
             // Arrange
             Subcategoria subcategoria = SubcategoriaFactory.Create(2);
-            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).Returns(Task.FromResult(subcategoria));
+            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).ReturnsAsync(subcategoria);
             _subcategoriaRepositoryMock.Setup(x => x.EditarSubcategoria(It.IsAny<Subcategoria>())).Returns(subcategoria);
 
             CancellationToken cancellationToken = default;
@@ -147,7 +146,7 @@ namespace EcommerceAPI.Test.Application.Handlers
         {
             // Arrange
             Subcategoria subcategoria = null;
-            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).Returns(Task.FromResult(subcategoria));
+            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).ReturnsAsync(subcategoria);
             _subcategoriaRepositoryMock.Setup(x => x.EditarSubcategoria(It.IsAny<Subcategoria>())).Returns(subcategoria);
 
             CancellationToken cancellationToken = default;
@@ -161,12 +160,12 @@ namespace EcommerceAPI.Test.Application.Handlers
             Assert.Equal("Subcategoria não localizada", result.Message);
         }
 
-        [Fact(DisplayName = "Deve ser possível tornar o status de subcategoria false")]
-        public async void Alterar_Status_Subcategoria_Para_False()
+        [Fact(DisplayName = "Deve ser possível tornar o status de subcategoria True")]
+        public async void Alterar_Status_Subcategoria_Para_True()
         {
             // Arrange
             Subcategoria subcategoria = SubcategoriaFactory.CreateWithStatusFalse(2);
-            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).Returns(Task.FromResult(subcategoria));
+            _subcategoriaQueriesMock.Setup(x => x.RecuperarSubcategoriaPorId(It.IsAny<int>())).ReturnsAsync(subcategoria);
             _subcategoriaRepositoryMock.Setup(x => x.EditarSubcategoria(It.IsAny<Subcategoria>())).Returns(subcategoria);
 
             CancellationToken cancellationToken = default;

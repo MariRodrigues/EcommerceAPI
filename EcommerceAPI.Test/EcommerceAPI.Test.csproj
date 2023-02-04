@@ -28,8 +28,4 @@
     <ProjectReference Include="..\EcommerceAPI.Infra\EcommerceAPI.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="WebApi\" />
-  </ItemGroup>
-
 </Project>
