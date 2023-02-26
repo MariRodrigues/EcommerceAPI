@@ -1,6 +1,7 @@
 ﻿using EcommerceAPI.Application.Commands.Categorias;
 using EcommerceAPI.Application.Services;
 using EcommerceAPI.Domain.Categorias.DTO;
+using EcommerceAPI.Domain.Queries;
 using EcommerceAPI.Infra.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,9 @@ namespace EcommerceAPI.Controller
     public class CategoriaController : ControllerBase
     {
         private readonly CategoriaService _categoriaService;
-        private readonly CategoriaQueries _categoriaQueries;
+        private readonly ICategoriaQueries _categoriaQueries;
 
-        public CategoriaController(CategoriaService categoriaService, CategoriaQueries categoriaQueries)
+        public CategoriaController(CategoriaService categoriaService, ICategoriaQueries categoriaQueries)
         {
             _categoriaService = categoriaService;
             _categoriaQueries = categoriaQueries;

@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20230120182039_primeira migracao db azure.cs" />
+    <Compile Remove="Migrations\20230120182039_primeira migracao db azure.Designer.cs" />
+    <Compile Remove="Migrations\20230225161003_migration.cs" />
+    <Compile Remove="Migrations\20230225161003_migration.Designer.cs" />
+    <Compile Remove="Migrations\20230225161051_migration2.cs" />
+    <Compile Remove="Migrations\20230225161051_migration2.Designer.cs" />
+    <Compile Remove="Migrations\AppDbContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="FluentResults" Version="3.8.0" />

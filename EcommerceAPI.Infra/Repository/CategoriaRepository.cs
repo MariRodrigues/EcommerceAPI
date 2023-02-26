@@ -36,8 +36,15 @@ namespace EcommerceAPI.Infra.Repository
         public Categoria EditarCategoria(Categoria categoriaAtualizar)
         {
             categoriaAtualizar.DataModificacao = DateTime.Now;
+            _context.Categorias.Update(categoriaAtualizar);
             _context.SaveChanges();
             return categoriaAtualizar;
+        }
+
+        public void DeletarCategoria(Categoria categoria)
+        {
+            _context.Categorias.Remove(categoria);
+            _context.SaveChanges();
         }
     }
 }
