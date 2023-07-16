@@ -1,5 +1,6 @@
 ﻿using EcommerceAPI.Domain.Categorias;
 using EcommerceAPI.Infra.Data;
+using EcommerceAPI.Infra.Queries;
 using EcommerceAPI.Infra.Repository;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,11 @@ namespace EcommerceAPI.Test.Infra.Shared
         public static CategoriaRepository CreateCategoriaRepository(AppDbContext context)
         {
             return new CategoriaRepository(context);
+        }
+
+        public static CategoriaQueries CreateCategoriaQueries(AppDbContext context)
+        {
+            return new CategoriaQueries(context);
         }
 
         public static void Create(Categoria categoria)

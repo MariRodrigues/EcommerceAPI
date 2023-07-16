@@ -33,8 +33,10 @@ namespace EcommerceAPI.Configurations
             var assembly = AppDomain.CurrentDomain.Load("EcommerceAPI.Application");
             services.AddMediatR(assembly);
 
+            var connectionString = Environment.GetEnvironmentVariable("CategoriaConnection");
+
             services.AddDbContext<AppDbContext>(opts => opts.UseLazyLoadingProxies()
-            .UseMySQL(Configuration.GetConnectionString("CategoriaConnection")));
+            .UseMySQL(connectionString));
             
             services.AddControllers();
             
