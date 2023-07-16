@@ -1,5 +1,5 @@
 # Ecommerce API
-API Rest para um ecommerce.
+API Rest para um ecommerce, construído para fins de aprendizado.
 
 ## Tecnologias
 
@@ -35,7 +35,7 @@ O arquivo ficará da seguinte forma:
 }
 ```
 
-Para rodar pela primeira vez, com o visual aberto, vá em ``Ferramentas`` > `Gerenciador de pacotes do NuGet` > ```Console do Gerenciador de Pacotes```
+Para rodar pela primeira vez, com o VS aberto, vá em ``Ferramentas`` > `Gerenciador de pacotes do NuGet` > ```Console do Gerenciador de Pacotes```
 
 Com o console aberto, em "Projeto Padrão" selecione o ```EcommerceAPI.Infra``` e escreva o seguinte comando:
 
